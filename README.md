@@ -7,9 +7,9 @@ The files inside this folder are:
 + ***Create_data_psychophysics.ipynb***    
 Creates the DataFrame from raw data  
 + ***Correction_data_psychophysics.ipynb***  
-Remove wrong and outliers.  
+Remove wrong trials and outliers.  
 Adds columns of interest.  
-Adds the correction from the perceptual biases (not used later on when analyzed).  
+Adds the correction from the perceptual biases (not used later on in the analysis).  
 + ***Subject_summary.ipynb***  
 Analysis of the interference effects created by the distractors.  
 + ***Serial_effects.ipynb***  
@@ -28,7 +28,7 @@ Creates the DataFrame from raw data
 Analysis of the interference effects created by the distractors.  
 
 As I was not using the corrections in the psychophysics, for the fMRI, the Create_data.ipynb 
-also containes the steps to remove wrong trails and outliers
+also containes the steps to remove wrong trails and outliers.
 
 
 ### Subject_summary_unify.ipynb
