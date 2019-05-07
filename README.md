@@ -1,1 +1,1 @@
-# wm_distractor_filtering
+# Working memory & Distractor filtering  
