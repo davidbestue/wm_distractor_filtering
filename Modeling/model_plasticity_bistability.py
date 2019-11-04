@@ -672,7 +672,27 @@ outputs_2_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=9600
 # In[ ]:
 
 
-print(outputs_2_7)
+df_1_02 = pd.DataFrame(outputs_1_02)
+df_1_02.columns= ['bias_target', 'bias_dist', 'number_of_bumps', 'angle_separation']
+df_1_02['delay']=0.2
+df_1_02['order'] =1
+
+df_1_7 = pd.DataFrame(outputs_1_7)
+df_1_7.columns= ['bias_target', 'bias_dist', 'number_of_bumps', 'angle_separation']
+df_1_7['delay']=7
+df_1_7['order'] =1
+
+df_2_02 = pd.DataFrame(outputs_2_02)
+df_2_02.columns= ['bias_target', 'bias_dist', 'number_of_bumps', 'angle_separation']
+df_2_02['delay']=0.2
+df_2_02['order'] =2
+
+df_2_7 = pd.DataFrame(outputs_2_7)
+df_2_7.columns= ['bias_target', 'bias_dist', 'number_of_bumps', 'angle_separation']
+df_2_7['delay']=7
+df_2_7['order'] =2
+
+res_simulations = pd.concat([df_1_02, df_1_7, df_2_02, df_2_7 ])
 
 
 # In[1]:
