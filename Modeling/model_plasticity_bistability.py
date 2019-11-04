@@ -669,7 +669,7 @@ outputs_2_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=9600
                                                           plot_fit=False ) for sep in separations) 
 
 
-# In[ ]:
+# In[10]:
 
 
 df_1_02 = pd.DataFrame(outputs_1_02)
@@ -693,6 +693,13 @@ df_2_7['delay']=7
 df_2_7['order'] =2
 
 res_simulations = pd.concat([df_1_02, df_1_7, df_2_02, df_2_7 ])
+
+
+# In[ ]:
+
+
+path_save = '/home/david/Desktop/res_sim.xlsx'
+res_simulations.to_excel(path_save)
 
 
 # In[1]:
