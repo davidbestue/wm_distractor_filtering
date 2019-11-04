@@ -592,7 +592,7 @@ def simulation_m_b(totalTime, targ_onset, dist_onset, presentation_period, separ
 
 
 numcores = multiprocessing.cpu_count() - 1
-separations = [3 for i in range(2)] + [4 for i in range(2)] + [5 for i in range(2)] +  [7 for i in range(2)] + [10 for i in range(2)] +  [12 for i in range(2)] +  [14 for i in range(2)] +  [18 for i in range(2)]
+separations = [3 for i in range(500)] + [3.5 for i in range(500)] + [4 for i in range(500)] + [5 for i in range(500)] +  [7 for i in range(500)] + [10 for i in range(500)] +  [12 for i in range(500)] +  [14 for i in range(500)] +  [18 for i in range(500)]
 
 
 # In[ ]:
@@ -692,7 +692,7 @@ df_2_7.columns= ['bias_target', 'bias_dist', 'number_of_bumps', 'angle_separatio
 df_2_7['delay']=7
 df_2_7['order'] =2
 
-res_simulations = pd.concat([df_1_02, df_1_7, df_2_02, df_2_7 ])
+res_simulations = pd.concat([df_1_02, df_1_7, df_2_02, df_2_7 ], ignore_index=True)
 
 
 # In[ ]:
