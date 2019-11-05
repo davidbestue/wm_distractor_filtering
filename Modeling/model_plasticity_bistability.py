@@ -674,7 +674,6 @@ path_save = '/home/david/Desktop/res_sim.xlsx'
 res_simulations.to_excel(path_save)
 
 
-
 # ### Plot the different quadrant selectuivity
 # origin=pi
 # stim_sep=pi/13
