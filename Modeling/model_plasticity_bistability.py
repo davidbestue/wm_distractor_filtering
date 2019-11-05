@@ -668,8 +668,6 @@ df_2_7['order'] =2
 res_simulations = pd.concat([df_1_02, df_1_7, df_2_02, df_2_7 ], ignore_index=True)
 
 
-
-
 path_save = '/home/david/Desktop/res_sim.xlsx'
 res_simulations.to_excel(path_save)
 
