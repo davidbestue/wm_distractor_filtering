@@ -11,7 +11,7 @@ separations = [3 for i in range(1)] + [3.5 for i in range(1)] + [4 for i in rang
 
 
 print('1_02')
-outputs_1_02 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=6200, 
+outputs_1_02 = Parallel(n_jobs = numcores)(delayed(model)(totalTime=6200, 
                                                           targ_onset = 200,
                                                           dist_onset=550, 
                                                           presentation_period=250,
@@ -27,7 +27,7 @@ outputs_1_02 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=620
 
 
 print('1_7')
-outputs_1_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=6200, 
+outputs_1_7 = Parallel(n_jobs = numcores)(delayed(model)(totalTime=6200, 
                                                           targ_onset = 200,
                                                           dist_onset=3900, 
                                                           presentation_period=250,
@@ -45,7 +45,7 @@ outputs_1_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=6200
 
 
 print('2_02')
-outputs_2_02 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=6200,
+outputs_2_02 = Parallel(n_jobs = numcores)(delayed(model)(totalTime=6200,
                                                           targ_onset = 550,
                                                           dist_onset=200, 
                                                           presentation_period=250,
@@ -62,7 +62,7 @@ outputs_2_02 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=620
 
 
 print('2_7')
-outputs_2_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=9600,
+outputs_2_7 = Parallel(n_jobs = numcores)(delayed(model)(totalTime=9600,
                                                           targ_onset = 3950,
                                                           dist_onset=200, 
                                                           presentation_period=250,
