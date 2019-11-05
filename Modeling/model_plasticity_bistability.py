@@ -572,14 +572,10 @@ def simulation_m_b(totalTime, targ_onset, dist_onset, presentation_period, separ
     return bias_target, bias_dist, number_of_bumps, angle_separation #rE[p_targ][0], I0E
 
 
-# In[165]:
-
 
 numcores = multiprocessing.cpu_count() - 1
 separations = [3 for i in range(500)] + [3.5 for i in range(500)] + [4 for i in range(500)] + [5 for i in range(500)] +  [7 for i in range(500)] + [10 for i in range(500)] +  [12 for i in range(500)] +  [14 for i in range(500)] +  [18 for i in range(500)]
 
-
-# In[ ]:
 
 
 print('1_02')
@@ -598,9 +594,6 @@ outputs_1_02 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=620
                                                           plot_fit=False ) for sep in separations) 
 
 
-# In[ ]:
-
-
 print('1_7')
 outputs_1_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=6200, 
                                                           targ_onset = 200,
@@ -617,7 +610,6 @@ outputs_1_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=6200
                                                           plot_fit=False ) for sep in separations) 
 
 
-# In[ ]:
 
 
 print('2_02')
@@ -635,7 +627,6 @@ outputs_2_02 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=620
                                                           plot_fit=False ) for sep in separations) 
 
 
-# In[ ]:
 
 
 print('2_7')
@@ -652,8 +643,6 @@ outputs_2_7 = Parallel(n_jobs = numcores)(delayed(simulation_m_b)(totalTime=9600
                                                           plot_heatmap=False, 
                                                           plot_fit=False ) for sep in separations) 
 
-
-# In[10]:
 
 
 df_1_02 = pd.DataFrame(outputs_1_02)
@@ -679,14 +668,11 @@ df_2_7['order'] =2
 res_simulations = pd.concat([df_1_02, df_1_7, df_2_02, df_2_7 ], ignore_index=True)
 
 
-# In[ ]:
 
 
 path_save = '/home/david/Desktop/res_sim.xlsx'
 res_simulations.to_excel(path_save)
 
-
-# In[1]:
 
 
 # ### Plot the different quadrant selectuivity
