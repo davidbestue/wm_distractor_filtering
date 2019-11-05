@@ -135,8 +135,6 @@ def model_I0E_constant(value, N=512):
 
 
 
-# In[167]:
-
 
 def model_I0E_guass(center_angle, N=512):
     mu = 0
@@ -150,9 +148,6 @@ def model_I0E_guass(center_angle, N=512):
     new_I0E = np.roll(y, rolling_angle_neur )
     return np.reshape(np.array(new_I0E), (N,1))
 
-
-
-# In[150]:
 
 
 def model_I0E_flat(center_angle, size_windows=90, n_ramping=50, N=512):
@@ -199,14 +194,6 @@ def model_I0E_flat(center_angle, size_windows=90, n_ramping=10, N=512):
     
     return np.reshape(np.array(new_I0E), (N,1))
 
-
-# In[168]:
-
-
-#plt.plot(model_I0E_flat(180))
-
-
-# In[158]:
 
 
 def simulation_m_b(totalTime, targ_onset, dist_onset, presentation_period, separation, inhib_curr, 
