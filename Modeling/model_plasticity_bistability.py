@@ -1,9 +1,6 @@
 
 # coding: utf-8
 
-# In[1]:
-
-
 from math import floor, exp, sqrt, pi
 import cmath
 import numpy
