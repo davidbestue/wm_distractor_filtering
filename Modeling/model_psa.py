@@ -218,14 +218,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     
     targ_dist_delay = dist_onset - targ_offset
 
-    ## I0E definition depending on condition
-    I0E = 1
-    I0E_standard = 0.9 #I0E
-    I0E_open =  1.2 #I0E_standard + 0.5
-    I0E_close= 0.6 #I0E_standard -0.35
-    if order_2 == True: 
-        I0E = I0E_close    
-    
+
     ###### Connectivitiess
     v_E=np.zeros((N));
     v_I=np.zeros((N));
@@ -317,6 +310,16 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     
     
     #### Different quadrant_selectivity options gaussian
+     ## I0E definition depending on condition
+    I0E_standard = 0.9 #I0E
+    I0E_open =  1.2 #I0E_standard + 0.5
+    I0E_close= 0.6 #I0E_standard -0.35
+    if order_2 == True: 
+        I0E = I0E_close 
+    else:
+        I0E = I0E_standard
+
+
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
     #quadrant_selectivity_open = model_I0E_guass( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
