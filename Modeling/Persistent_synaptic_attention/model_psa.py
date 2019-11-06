@@ -218,7 +218,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     stim_sep = pi/separation; #(13 attract, 9 solo 1, 5 repulsion, 2 nada)
     
     targ_dist_delay = dist_onset - targ_offset
-
     
     ###### Connectivitiess
     v_E=np.zeros((N));
@@ -260,10 +259,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.title('Effective onnectivity')
         plt.show(block=False)
     
-    #topography_pattern  =  WE[250, :] + -1*(WI[250, :]) ##plot the topography of the connectivities
-    #plt.plot(topography_pattern, 'k')
-    #plt.show(block=False)
-    
+    #   
     ###### Stimuli
     target=np.zeros((N))
     distractor=np.zeros((N))
@@ -277,12 +273,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     target=reshape(target, (N,1))
     distractor = distractor+ np.random.normal(0, 0.01, N)
     distractor=reshape(distractor, (N,1)) 
-    
-    #plt.plot(target) ##plot the target and distractor
-    #plt.plot(distractor)
-    #plt.show(block=False)
-    
-    ###### Model   
+    # Model   
     rE=np.zeros((N,1));
     rI=np.zeros((N,1)); 
     u = np.ones((N,1))*U
