@@ -199,7 +199,7 @@ def model_I0E_flat(center_angle, size_windows=90, n_ramping=10, N=512):
 
 def model(totalTime, targ_onset, dist_onset, presentation_period, separation, order_2, 
                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
-               GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=1.2, sigI=0.04,
+               GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
                kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
                N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True ):
     
