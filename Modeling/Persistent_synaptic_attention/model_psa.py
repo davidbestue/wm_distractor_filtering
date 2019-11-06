@@ -291,25 +291,10 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     RI=np.zeros((N,nsteps));
     p_u=np.ones((N,nsteps));
     p_x=np.ones((N,nsteps));
-    
+    #    
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
-    
-    
-    #quadrant_selectivity = ones((N,1))
-    
-    #### Different quadrant_selectivity options
-    #start_q_se = model_I0E( np.degrees(origin + stim_sep),90)
-    #f1 = np.where(start_q_se==0, I0E_close, start_q_se)
-    #quadrant_selectivity_open = np.where(f1==1, I0E_standard, f1)
-    ##
-    #start_q_se = model_I0E( np.degrees(origin + stim_sep),90)
-    #f1 = np.where(start_q_se==0, I0E_close, start_q_se)
-    #quadrant_selectivity_close = np.where(f1==1, I0E_close, f1)    
-    ###  
-    #quadrant_selectivity_standard = I0E_standard * ones((N,1))
-    #quadrant_selectivity = quadrant_selectivity_standard
-        
-    #### Different quadrant_selectivity options gaussian
+    #
+    ## Different quadrant_selectivity options gaussian
     I0E_standard = 0.6 #0.9 #I0E
     I0E_open =  1.2 #I0E_standard + 0.5
     I0E_close= 0.6 #I0E_standard -0.35
