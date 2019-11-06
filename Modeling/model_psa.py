@@ -575,3 +575,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     angle_separation = round(2*np.degrees(pi/separation),2)
     
     return bias_target, bias_dist, number_of_bumps, angle_separation #rE[p_targ][0], I0E
+
+
+
+
+print('New version')
