@@ -1,4 +1,7 @@
 
+
+print('New version')
+
 from math import floor, exp, sqrt, pi
 import cmath
 import numpy
