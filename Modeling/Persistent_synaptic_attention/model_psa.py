@@ -165,7 +165,7 @@ def model_I0E_guass(center_angle, N=512):
 
 
 
-def model_I0E_flat(center_angle, size_windows=120, n_ramping=10, N=512):
+def model_I0E_flat(center_angle, size_windows=100, n_ramping=10, N=512):
     inf, sup = np.radians(center_angle) - np.radians(size_windows/2), np.radians(center_angle) + np.radians(size_windows/2)
     inf_r, sup_r = inf  - np.radians(n_ramping), sup  + np.radians(n_ramping)
     #print(inf,sup)
@@ -351,36 +351,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         else:
             quadrant_selectivity = quadrant_selectivity_open
 
-        ####        
-        # if order_2 == True: ### order 2
-        #     if i< targon:
-        #         #I0E=I0E_close
-        #         quadrant_selectivity = quadrant_selectivity_close
-        #     ###
-        #     ### General
-        #     ###
-        #     if i > targon and i < targoff:
-        #         #I0E=I0E_open
-        #         quadrant_selectivity = quadrant_selectivity_open
-
-        #     if i > targoff:
-        #         #I0E = I0E_standard
-        #         quadrant_selectivity = quadrant_selectivity_open
-        #     ####
-        # #####
-        # elif order_2 == False: ### order 1
-        #     if i< targon:
-        #         quadrant_selectivity = quadrant_selectivity_standard
-        #     ### General
-        #     ###
-        #     if i > targon and i < targoff:
-        #         #I0E=I0E_open
-        #         quadrant_selectivity = quadrant_selectivity_open
-
-        #     if i > targoff:
-        #         #I0E = I0E_open
-        #         quadrant_selectivity = quadrant_selectivity_open
-        #     ####
         #####################################################
         #####################################################
         #rates of exit and inhib   
