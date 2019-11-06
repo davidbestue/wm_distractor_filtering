@@ -328,7 +328,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
         noiseI = sigI*random.randn(N,1);
-
         #differential equations for connectivity
         #IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI,rI) + I0E* ones((N,1)); 
         IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI,rI) + quadrant_selectivity;
