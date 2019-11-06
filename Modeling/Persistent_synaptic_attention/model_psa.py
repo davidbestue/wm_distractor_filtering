@@ -343,7 +343,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
             II=II+distractor;
 
         ###
-         if i< targon:
+        if i< targon:
             if order_2==True:
                 quadrant_selectivity = quadrant_selectivity_close
             elif order_2==False:
