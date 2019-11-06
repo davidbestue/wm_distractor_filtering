@@ -344,11 +344,10 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
 
         ###
         if i< targon:
-            quadrant_selectivity_close
-            #if order_2==True:
-            #    quadrant_selectivity = quadrant_selectivity_close
-            #elif order_2==False:
-            #    quadrant_selectivity = quadrant_selectivity_standard
+            if order_2==True:
+               quadrant_selectivity = quadrant_selectivity_close
+            elif order_2==False:
+               quadrant_selectivity = quadrant_selectivity_standard
         else:
             quadrant_selectivity = quadrant_selectivity_open
 
