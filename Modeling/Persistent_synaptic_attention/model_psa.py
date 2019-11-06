@@ -218,7 +218,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     stim_sep = pi/separation; #(13 attract, 9 solo 1, 5 repulsion, 2 nada)
     
     targ_dist_delay = dist_onset - targ_offset
-    
+
     ###### Connectivitiess
     v_E=np.zeros((N));
     v_I=np.zeros((N));
@@ -282,7 +282,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     RI=np.zeros((N,nsteps));
     p_u=np.ones((N,nsteps));
     p_x=np.ones((N,nsteps));
-    #    
+    #
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     #
     ## Different quadrant_selectivity options gaussian
@@ -326,7 +326,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         else:
             quadrant_selectivity = quadrant_selectivity_open
 
-        #####################################################
         #####################################################
         #rates of exit and inhib   
         rE = rE + (f(IE) - rE + noiseE)*dt/tauE;
