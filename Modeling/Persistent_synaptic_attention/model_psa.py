@@ -570,3 +570,11 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, in
     angle_separation = round(2*np.degrees(pi/separation),2)
     
     return bias_target, bias_dist, number_of_bumps, angle_separation #rE[p_targ][0], I0E
+
+
+
+
+
+#### Examples
+model(totalTime=9600, targ_onset = 3950, dist_onset=200, presentation_period=250, separation=3, 
+    inhib_curr=True, time_ex_input=0,  sigE=1.2, plot_connectivity=False, plot_dyniamic=False, plot_heatmap=False, plot_fit=False )
