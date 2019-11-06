@@ -1,4 +1,6 @@
 
+print('New vers')
+
 from math import floor, exp, sqrt, pi
 import cmath
 import numpy
@@ -196,8 +198,8 @@ def model_I0E_flat(center_angle, size_windows=90, n_ramping=10, N=512):
 
 ##model
 
-def model(totalTime, targ_onset, dist_onset, presentation_period, separation, inhib_curr, 
-               time_ex_input=10, tauE=60, tauI=10, tauf=7000, taud=80, I0E=1.3, I0I=0.4, U=0.4,
+def model(totalTime, targ_onset, dist_onset, presentation_period, separation, order_2, 
+               time_ex_input=10, tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
                GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.06, sigI=0.04,
                kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
                N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True ):
@@ -217,12 +219,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, in
     stim_sep = pi/separation; #(13 attract, 9 solo 1, 5 repulsion, 2 nada)
     
     targ_dist_delay = dist_onset - targ_offset
-    I0E = 1
-    I0E_standard = 0.9 #I0E
-    I0E_open =  1.2 #I0E_standard + 0.5
-    I0E_close= 0.6 #I0E_standard -0.35
-    if inhib_curr == True: 
-        I0E = I0E_close    
+
     
     ###### Connectivitiess
     v_E=np.zeros((N));
@@ -302,19 +299,25 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, in
     #quadrant_selectivity = ones((N,1))
     
     #### Different quadrant_selectivity options
-    start_q_se = model_I0E( np.degrees(origin + stim_sep),90)
-    f1 = np.where(start_q_se==0, I0E_close, start_q_se)
-    quadrant_selectivity_open = np.where(f1==1, I0E_standard, f1)
+    #start_q_se = model_I0E( np.degrees(origin + stim_sep),90)
+    #f1 = np.where(start_q_se==0, I0E_close, start_q_se)
+    #quadrant_selectivity_open = np.where(f1==1, I0E_standard, f1)
     ##
-    start_q_se = model_I0E( np.degrees(origin + stim_sep),90)
-    f1 = np.where(start_q_se==0, I0E_close, start_q_se)
-    quadrant_selectivity_close = np.where(f1==1, I0E_close, f1)    
+    #start_q_se = model_I0E( np.degrees(origin + stim_sep),90)
+    #f1 = np.where(start_q_se==0, I0E_close, start_q_se)
+    #quadrant_selectivity_close = np.where(f1==1, I0E_close, f1)    
     ###  
-    quadrant_selectivity_standard = I0E_standard * ones((N,1))
-    quadrant_selectivity = quadrant_selectivity_standard
-    
-    
+    #quadrant_selectivity_standard = I0E_standard * ones((N,1))
+    #quadrant_selectivity = quadrant_selectivity_standard
+        
     #### Different quadrant_selectivity options gaussian
+    I0E_standard = 0.9 #I0E
+    I0E_open =  1.2 #I0E_standard + 0.5
+    I0E_close= 0.6 #I0E_standard -0.35
+    if order_2 == True: 
+        I0E = I0E_close  
+    else:
+        I0E= I0E_standard  
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
     #quadrant_selectivity_open = model_I0E_guass( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
@@ -339,7 +342,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, in
             IE=IE+distractor;
             II=II+distractor;
         
-        if inhib_curr == True: ### order 2
+        if order_2 == True: ### order 2
             if i< targon:
                 #I0E=I0E_close
                 quadrant_selectivity = quadrant_selectivity_close
@@ -355,7 +358,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, in
                 quadrant_selectivity = quadrant_selectivity_open
             ####
         #####
-        elif inhib_curr == False: ### order 1
+        elif order_2 == False: ### order 1
             if i< targon:
                 quadrant_selectivity = quadrant_selectivity_standard
             ### General
