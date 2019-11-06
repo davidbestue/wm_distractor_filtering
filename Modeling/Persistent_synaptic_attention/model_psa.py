@@ -310,7 +310,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     #quadrant_selectivity = quadrant_selectivity_standard
         
     #### Different quadrant_selectivity options gaussian
-    I0E_standard = 0.9 #I0E
+    I0E_standard = 0.6 #0.9 #I0E
     I0E_open =  1.2 #I0E_standard + 0.5
     I0E_close= 0.6 #I0E_standard -0.35
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
@@ -445,8 +445,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.yticks([])
         plt.xticks([])
         plt.yticks([N/8, 3*N/8, 5*N/8, 7*N/8 ] ,['45','135','225', '315'])
-        #plt.plot([targ_onset/2, targ_onset/2,], [0+20, N-20], 'k-', label='onset')
-        #plt.plot([targ_offset/2, targ_offset/2,], [0+20, N-20], 'k--', label='offset')
+        plt.plot([targ_onset/2, targ_onset/2,], [0+20, N-20], 'k-', label='onset')
+        plt.plot([targ_offset/2, targ_offset/2,], [0+20, N-20], 'k--', label='offset')
         plt.plot([dist_onset/2, dist_onset/2,], [0+20, N-20], 'k-')
         plt.plot([dist_offset/2, dist_offset/2,], [0+20, N-20], 'k--')
         plt.legend()
