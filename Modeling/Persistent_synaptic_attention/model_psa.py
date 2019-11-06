@@ -576,5 +576,5 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, in
 
 
 #### Examples
-model(totalTime=9600, targ_onset = 3950, dist_onset=200, presentation_period=250, separation=3, 
-    inhib_curr=True, time_ex_input=0,  sigE=1.2, plot_connectivity=False, plot_dyniamic=False, plot_heatmap=False, plot_fit=False )
+# model(totalTime=9600, targ_onset = 3950, dist_onset=200, presentation_period=250, separation=3, 
+#     inhib_curr=True, time_ex_input=0,  sigE=1.2, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
