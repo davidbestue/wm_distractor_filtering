@@ -341,36 +341,46 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         if i>diston and i<distoff:
             IE=IE+distractor;
             II=II+distractor;
-        
-        if order_2 == True: ### order 2
-            if i< targon:
-                #I0E=I0E_close
+
+        ###
+         if i< targon:
+            if order_2==True:
                 quadrant_selectivity = quadrant_selectivity_close
-            ###
-            ### General
-            ###
-            if i > targon and i < targoff:
-                #I0E=I0E_open
-                quadrant_selectivity = quadrant_selectivity_open
-
-            if i > targoff:
-                #I0E = I0E_standard
-                quadrant_selectivity = quadrant_selectivity_open
-            ####
-        #####
-        elif order_2 == False: ### order 1
-            if i< targon:
+            elif order_2==False:
                 quadrant_selectivity = quadrant_selectivity_standard
-            ### General
-            ###
-            if i > targon and i < targoff:
-                #I0E=I0E_open
-                quadrant_selectivity = quadrant_selectivity_open
+        else:
+            quadrant_selectivity = quadrant_selectivity_open
 
-            if i > targoff:
-                #I0E = I0E_open
-                quadrant_selectivity = quadrant_selectivity_open
-            ####
+        ####        
+        # if order_2 == True: ### order 2
+        #     if i< targon:
+        #         #I0E=I0E_close
+        #         quadrant_selectivity = quadrant_selectivity_close
+        #     ###
+        #     ### General
+        #     ###
+        #     if i > targon and i < targoff:
+        #         #I0E=I0E_open
+        #         quadrant_selectivity = quadrant_selectivity_open
+
+        #     if i > targoff:
+        #         #I0E = I0E_standard
+        #         quadrant_selectivity = quadrant_selectivity_open
+        #     ####
+        # #####
+        # elif order_2 == False: ### order 1
+        #     if i< targon:
+        #         quadrant_selectivity = quadrant_selectivity_standard
+        #     ### General
+        #     ###
+        #     if i > targon and i < targoff:
+        #         #I0E=I0E_open
+        #         quadrant_selectivity = quadrant_selectivity_open
+
+        #     if i > targoff:
+        #         #I0E = I0E_open
+        #         quadrant_selectivity = quadrant_selectivity_open
+        #     ####
         #####################################################
         #####################################################
         #rates of exit and inhib   
