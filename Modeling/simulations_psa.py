@@ -7,7 +7,6 @@ from model_psa import *
 numcores = multiprocessing.cpu_count()-3
 numcores
 
-
 numcores = multiprocessing.cpu_count() - 1
 separations = [3 for i in range(500)] + [3.5 for i in range(500)] + [4 for i in range(500)] + [5 for i in range(500)] +  [7 for i in range(500)] + [10 for i in range(500)] +  [12 for i in range(500)] +  [14 for i in range(500)] +  [18 for i in range(500)]
 
