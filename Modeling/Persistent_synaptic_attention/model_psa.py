@@ -1,5 +1,4 @@
 
-print('New vers')
 
 from math import floor, exp, sqrt, pi
 import cmath
@@ -447,7 +446,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     end_sim =time.time()
     total_time= end_sim - st_sim 
     total_time = round(total_time, 1)
-    print('Simulation time: ' + str(total_time) + 'sec')
+    print('Simulation time: ' + str(total_time) + 's')
     
     #### Fit
     ###### Fit
