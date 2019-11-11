@@ -150,7 +150,6 @@ def model_I0E_guass(center_angle, N=512):
 
 
 
-#
 def model_I0E_flat(center_angle, size_windows=100, n_ramping=10, N=512):
     inf, sup = np.radians(center_angle) - np.radians(size_windows/2), np.radians(center_angle) + np.radians(size_windows/2)
     inf_r, sup_r = inf  - np.radians(n_ramping), sup  + np.radians(n_ramping)
