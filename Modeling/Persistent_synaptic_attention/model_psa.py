@@ -388,7 +388,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.legend()
         plt.show(block=False)
     
-    
     ## print time consumed in each simulation
     end_sim =time.time()
     total_time= end_sim - st_sim 
@@ -428,7 +427,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
                 estim_ang = 360+estim_ang
             estimated_angles.append(estim_ang)
         
-        #
         #print(estimated_angles)
         #decoded angles
         decoded_target = closest(estimated_angles, decode_rE(target))
@@ -442,7 +440,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         #print(np.degrees( origin - pi/separation), decode_rE(target))
         #print(np.degrees( origin + pi/separation), decode_rE(distractor))
         #print(targ_ang, dist_ang)
-
 
     elif number_of_bumps ==1:
         target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
@@ -493,14 +490,11 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.show(block=False) 
     
     ### Output
-    
-    
     return bias_target, bias_dist, number_of_bumps, angle_separation #rE[p_targ][0], I0E
 
 
 
 
-
-#### Examples
+### Example
 # model(totalTime=9600, targ_onset = 3950, dist_onset=200, presentation_period=250, separation=3, 
 #     inhib_curr=True, time_ex_input=0,  sigE=1.2, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
