@@ -198,6 +198,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     dist_offset = dist_onset  + presentation_period;
     distoff = floor(dist_offset/dt);
     stim_sep = pi/separation; #(13 attract, 9 solo 1, 5 repulsion, 2 nada)
+    angle_separation = round(2*np.degrees(pi/separation),2)
     ###
     targ_dist_delay = dist_onset - targ_offset
     ###### Connectivitiess
@@ -486,15 +487,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.show(block=False) 
     
     ### Output
-    #return RE,  RI, p_u, p_x
-    #return interference, targ_dist_delay 
-    max_re = max(rE)[0]
-    ### interfernce max
-    #dec_far = np.linspace(180,0,int(N/2))[np.where(y[int(N/2):]==max(y[int(N/2):]))[0][0]]
-    #dec_close = np.linspace(180,0,int(N/2))[np.where(y1[int(N/2):]==max(y1[int(N/2):]))[0][0]]
-    #int_close = dec_close - np.degrees( pi - pi/4)
-    #int_far = dec_far - np.degrees( pi - pi/4)
-    angle_separation = round(2*np.degrees(pi/separation),2)
+    
     
     return bias_target, bias_dist, number_of_bumps, angle_separation #rE[p_targ][0], I0E
 
