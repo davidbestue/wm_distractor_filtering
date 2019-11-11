@@ -416,7 +416,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     ##
     y=np.reshape(rE, (N)) 
     X=np.reshape(np.linspace(-pi, pi, N), N)
-
     ### Fit
     df_n_p=pd.DataFrame()
     df_n_p['rE'] = rE.reshape(512)
