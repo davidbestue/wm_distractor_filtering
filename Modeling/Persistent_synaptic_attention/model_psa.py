@@ -194,14 +194,12 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     targ_offset = targ_onset + presentation_period;
     targon = floor(targ_onset/dt);
     targoff = floor(targ_offset/dt);
-    
+    diston = floor(dist_onset/dt);    
     dist_offset = dist_onset  + presentation_period;
-    diston = floor(dist_onset/dt);
     distoff = floor(dist_offset/dt);
     stim_sep = pi/separation; #(13 attract, 9 solo 1, 5 repulsion, 2 nada)
-    
+    ###
     targ_dist_delay = dist_onset - targ_offset
-
     ###### Connectivitiess
     v_E=np.zeros((N));
     v_I=np.zeros((N));
