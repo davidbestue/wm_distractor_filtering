@@ -230,8 +230,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.show(block=False)
         plt.figure()
         plt.plot(WE[250, :] - WI[250, :] , label='E-I')
-        #plt.plot(WI[250, :], label = 'I')
-        #plt.ylim(0,6)
         plt.gca().spines['right'].set_visible(False) #no right axis
         plt.gca().spines['top'].set_visible(False) #no  top axis
         plt.gca().get_xaxis().tick_bottom()
@@ -239,7 +237,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.title('Effective onnectivity')
         plt.show(block=False)
     
-    #   
     ###### Stimuli
     target=np.zeros((N))
     distractor=np.zeros((N))
