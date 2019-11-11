@@ -415,7 +415,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     #
     number_of_bumps=most_frequent(peaks_list)
     #print(number_of_bumps)
-    ### 
     ### Fit
     if number_of_bumps ==2:
         target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
