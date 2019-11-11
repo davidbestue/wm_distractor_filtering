@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 """
 Created on Mon Nov 11 10:05:33 2019
@@ -25,6 +24,7 @@ import scipy.signal
 from scipy.optimize import curve_fit 
 import math
 from scipy import stats
+
 
 ## accesory functions
 def decode_rE(rE, a_ini=0, a_fin=360, N=512):
