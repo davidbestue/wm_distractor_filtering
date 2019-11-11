@@ -282,7 +282,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         #differential equations for connectivity
         IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI,rI) + quadrant_selectivity;
         II= GEI*dot(WE,rE) +  (I0I-GII*mean(rI))*ones((N,1));
-
+        #
         if i>targon and i<targoff:
             IE=IE+target;
             II=II+target;
