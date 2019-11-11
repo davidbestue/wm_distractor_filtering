@@ -41,8 +41,6 @@ def decode_rE(rE, a_ini=0, a_fin=360, N=512):
         angle_decoded = 360+angle_decoded
     
     return angle_decoded
-    #Mat.append(  [angle(R), abs(angle(R)) , degrees(abs(angle(R)))]  )
-    #return round( np.degrees(abs(np.angle(R))), 2)
 
 
 
