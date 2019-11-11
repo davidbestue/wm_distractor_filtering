@@ -490,7 +490,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.show(block=False) 
     
     ### Output
-    return bias_target, bias_dist, number_of_bumps, angle_separation #rE[p_targ][0], I0E
+    return bias_target, bias_dist, number_of_bumps, angle_separation, RE #rE[p_targ][0], I0E
 
 
 
