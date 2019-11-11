@@ -21,7 +21,6 @@ from scipy.optimize import curve_fit
 import math
 from scipy import stats
 
-
 ## accesory functions
 
 def decode_rE(rE, a_ini=0, a_fin=360, N=512):
