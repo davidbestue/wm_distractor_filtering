@@ -208,15 +208,14 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     theta = [float(range(0,N)[i])/N*2*pi for i in range(0,N)];
     for i in range(0, N):
         v_E_new=[e**(kappa_E*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_E)) for f in range(0, len(theta))]    
-        v_I_new=[e**(kappa_I*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_I)) + k_inhib for f in range(0, len(theta))] #0.18
+        v_I_new=[e**(kappa_I*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_I)) + k_inhib for f in range(0, len(theta))] 
         ###    
         vE_NEW=np.roll(v_E_new,i)
-        vI_NEW=np.roll(v_I_new,i) #to roll
+        vI_NEW=np.roll(v_I_new,i) 
         ###    
         WE[:,i]=vE_NEW
         WI[:,i]=vI_NEW
     
-    #
     # Plot of the connectivity profile
     if plot_connectivity ==True:
         plt.figure()
