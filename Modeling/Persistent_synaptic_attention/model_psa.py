@@ -261,13 +261,11 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     p_x=np.ones((N,nsteps));
     #
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
-    #
     ## Different quadrant_selectivity options gaussian
     I0E_standard = 0.6 #0.9 #I0E
     I0E_open =  1.2 #I0E_standard + 0.5
     I0E_close= 0.6 #I0E_standard -0.35
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
-    #quadrant_selectivity_open = model_I0E_guass( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_standard = model_I0E_constant(I0E_standard)
     quadrant_selectivity = quadrant_selectivity_standard
@@ -282,7 +280,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         noiseE = sigE*random.randn(N,1);
         noiseI = sigI*random.randn(N,1);
         #differential equations for connectivity
-        #IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI,rI) + I0E* ones((N,1)); 
         IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI,rI) + quadrant_selectivity;
         II= GEI*dot(WE,rE) +  (I0I-GII*mean(rI))*ones((N,1));
 
