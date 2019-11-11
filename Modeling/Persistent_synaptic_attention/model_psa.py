@@ -180,7 +180,6 @@ def model_I0E_flat(center_angle, size_windows=100, n_ramping=10, N=512):
 
 
 ##model
-
 def model(totalTime, targ_onset, dist_onset, presentation_period, separation, order_2, 
                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
                GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
