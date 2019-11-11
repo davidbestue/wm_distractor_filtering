@@ -389,7 +389,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.show(block=False)
     
     
-    ## print time consumed
+    ## print time consumed in each simulation
     end_sim =time.time()
     total_time= end_sim - st_sim 
     total_time = round(total_time, 1)
