@@ -148,22 +148,7 @@ def model_I0E_guass(center_angle, N=512):
 
 
 
-# def model_I0E_flat(center_angle, size_windows=90, n_ramping=50, N=512):
-#     inf, sup = np.radians(center_angle) - np.radians(size_windows/2), np.radians(center_angle) + np.radians(size_windows/2)
-#     new_I0E=[]
-#     theta = [float(range(0,N)[i])/N*2*pi for i in range(0,N)];
-#     for i in theta:
-#         if i < closest(theta, inf):
-#             new_I0E.append(0)
-#         elif i>= closest(theta, inf) and i <=closest(theta, sup):
-#             new_I0E.append(1)
-#         else:
-#             new_I0E.append(0)
-    
-#     return np.reshape(np.array(new_I0E), (N,1))
-
-
-
+#
 def model_I0E_flat(center_angle, size_windows=100, n_ramping=10, N=512):
     inf, sup = np.radians(center_angle) - np.radians(size_windows/2), np.radians(center_angle) + np.radians(size_windows/2)
     inf_r, sup_r = inf  - np.radians(n_ramping), sup  + np.radians(n_ramping)
