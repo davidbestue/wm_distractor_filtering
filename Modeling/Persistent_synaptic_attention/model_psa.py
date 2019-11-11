@@ -394,9 +394,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     total_time= end_sim - st_sim 
     total_time = round(total_time, 1)
     print('Simulation time: ' + str(total_time) + 's')
-    #### Fit
-
-
     ##
     y=np.reshape(rE, (N)) 
     X=np.reshape(np.linspace(-pi, pi, N), N)
