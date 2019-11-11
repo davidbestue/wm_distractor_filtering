@@ -274,7 +274,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         quadrant_selectivity = quadrant_selectivity_close  
     else:
         quadrant_selectivity= quadrant_selectivity_standard  
-    
+    ##
     ### diferential equations
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
