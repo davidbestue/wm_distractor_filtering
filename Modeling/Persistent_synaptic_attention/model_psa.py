@@ -181,19 +181,21 @@ def model_I0E_flat(center_angle, size_windows=100, n_ramping=10, N=512):
 
 
 
-
+### Functions to make the fit
+###
+#### von misses
 def von_misses(x,mu,k):
     return (exp( k * cos(x-mu))) / (2*pi*scipy.special.i0(k)) 
 
 
+#### bi von misses
 def bi_von_misses(x,mu1,k1,mu2,k2):
     return von_misses(x,mu1,k1) + von_misses(x,mu2,k2)
 
 
+#### gaussian
 def gauss(x,mu,sigma,A):
     return A*exp(-(x-mu)**2/2/sigma**2)
-
-
 
 
 
