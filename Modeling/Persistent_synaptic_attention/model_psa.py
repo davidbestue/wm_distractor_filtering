@@ -2,7 +2,7 @@
 """
 Created on Mon Nov 11 10:05:33 2019
 
-@author: David Bestue
+@author: David Bestué
 """
 from math import floor, exp, sqrt, pi
 import cmath
