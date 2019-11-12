@@ -34,8 +34,7 @@ def decode_rE(rE, a_ini=0, a_fin=360, N=512):
     Angles = np.linspace(a_ini, a_fin, N) 
     angles=np.radians(Angles)
     rE = np.reshape(rE, (1,N))
-    R = numpy.sum(np.dot(rE,exp(1j*angles)))/numpy.sum(rE)
-    
+    R = numpy.sum(np.dot(rE,exp(1j*angles)))/numpy.sum(rE) ## finding it with imagianry numbers
     angle_decoded = np.degrees(np.angle(R))
     if angle_decoded<0:
         angle_decoded = 360+angle_decoded
