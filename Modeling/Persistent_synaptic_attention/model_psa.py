@@ -4,6 +4,7 @@ Created on Mon Nov 11 10:05:33 2019
 
 @author: David Bestué
 """
+import math
 from math import floor, exp, sqrt, pi
 import cmath
 import numpy
@@ -22,7 +23,6 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 import scipy.signal
 from scipy.optimize import curve_fit 
-import math
 from scipy import stats
 
 
