@@ -480,7 +480,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         ss_tot = np.sum((y-numpy.mean(y))**2)
         r_squared = 1 - (ss_res / ss_tot)
 
-    #plot fit
+    #Plot Fit
     if plot_fit==True:
         plt.figure()
         plt.plot(X, y, 'o', color ='red', label ="data") 
