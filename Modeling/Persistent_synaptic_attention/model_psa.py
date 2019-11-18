@@ -421,8 +421,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         ans = (exp( param[1] * cos(X-param[0]))) / (2*pi*scipy.special.i0(param[1])) + (exp( param[3] * cos(X-param[2]))) / (2*pi*scipy.special.i0(param[3])) 
         estimated_angles=[]
         for p in [param[0], param[2]]:
-            estim_ang = np.degrees(p)
-            if estim_ang<0:
+            estim_ang = np.degrees(p)  
+            if estim_ang<0: 
                 estim_ang = 360+estim_ang
             estimated_angles.append(estim_ang)
         
