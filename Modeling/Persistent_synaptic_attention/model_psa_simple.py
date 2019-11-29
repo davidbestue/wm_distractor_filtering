@@ -196,7 +196,7 @@ def gauss(x,mu,sigma,A):
 
 
 
-# model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=35, order_2=False, 
+# model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=70, order_2=False, 
 #                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
 #                GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
 #                kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
@@ -242,6 +242,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     dist_offset = dist_onset  + presentation_period;
     distoff = floor(dist_offset/dt);
     stim_sep =  angle_separation*pi/360
+    angle_target=180+angle_separation/2
+    angle_distractor=180-angle_separation/2
     # Connectivitiess
     v_E=np.zeros((N));
     v_I=np.zeros((N));
@@ -283,14 +285,14 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     target=np.zeros((N))
     distractor=np.zeros((N))
     for i in range(0, N):
-        target[i]=e**(kappa_stim*cos(theta[i] + origin - stim_sep))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep), reverse, yes!
+        target[i]=e**(kappa_stim*cos(theta[i] + origin - stim_sep))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
         distractor[i]=e**(kappa_stim*cos(theta[i] + origin + stim_sep)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
     
     
     #
-    target = target+ np.random.normal(0, 0.01, N)
+    target = target+ np.random.normal(0, 0.06, N)
     target=reshape(target, (N,1))
-    distractor = distractor+ np.random.normal(0, 0.01, N)
+    distractor = distractor+ np.random.normal(0, 0.06, N)
     distractor=reshape(distractor, (N,1)) 
     # Model   
     rE=np.zeros((N,1));
