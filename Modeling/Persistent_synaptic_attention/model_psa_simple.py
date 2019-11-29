@@ -135,17 +135,17 @@ def model_I0E_constant(value, N=512):
 
 
 
-def model_I0E_guass(center_angle, N=512):
-    mu = 0
-    variance = 0.6
-    sigma = math.sqrt(variance)
-    x = np.linspace(mu - 12*sigma, mu + 12*sigma, 512)
-    y = 2*stats.norm.pdf(x, mu, sigma)
-    center_pdf = 180 #deg 
-    rolling_angle = center_angle - center_pdf #deg
-    rolling_angle_neur  = int(rolling_angle*N/360)
-    new_I0E = np.roll(y, rolling_angle_neur )
-    return np.reshape(np.array(new_I0E), (N,1))
+# def model_I0E_guass(center_angle, N=512):
+#     mu = 0
+#     variance = 0.6
+#     sigma = math.sqrt(variance)
+#     x = np.linspace(mu - 12*sigma, mu + 12*sigma, 512)
+#     y = 2*stats.norm.pdf(x, mu, sigma)
+#     center_pdf = 180 #deg 
+#     rolling_angle = center_angle - center_pdf #deg
+#     rolling_angle_neur  = int(rolling_angle*N/360)
+#     new_I0E = np.roll(y, rolling_angle_neur )
+#     return np.reshape(np.array(new_I0E), (N,1))
 
 
 
@@ -203,6 +203,38 @@ def gauss(x,mu,sigma,A):
 #                N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
 
 
+
+# fs=[]
+
+# #f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1) 
+
+
+
+# f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(5*x[i]-4) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
+
+# space= list(np.linspace(0,5,100))
+# for i in space:
+#     x=np.ones(512)*i
+#     fs.append(f(x)[0,0])
+
+
+# plt.plot(space, fs)
+# plt.show(block=False)
+
+
+
+target=np.zeros((N))
+distractor=np.zeros((N))
+for i in range(0, N):
+    target[i]=e**(kappa_stim*cos(theta[i] + origin - stim_sep))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
+    distractor[i]=e**(kappa_stim*cos(theta[i] + origin + stim_sep)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
+
+
+plt.plot(target, 'b')
+plt.plot(distractor, 'r')
+plt.show()
+
+
 ##model
 def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separation, order_2, 
                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
@@ -210,7 +242,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
                kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
                N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True ):
     
-    ###### temporal and spatial settings
+    # Temporal and spatial settings
     st_sim =time.time()
     dt=2;
     nsteps=int(floor(totalTime/dt));
@@ -222,9 +254,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     dist_offset = dist_onset  + presentation_period;
     distoff = floor(dist_offset/dt);
     stim_sep =  angle_separation*pi/360
-    ###
-    #targ_dist_delay = dist_onset - targ_offset
-    ###### Connectivitiess
+    # Connectivitiess
     v_E=np.zeros((N));
     v_I=np.zeros((N));
     WE=np.zeros((N,N));
@@ -233,10 +263,10 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     for i in range(0, N):
         v_E_new=[e**(kappa_E*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_E)) for f in range(0, len(theta))]    
         v_I_new=[e**(kappa_I*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_I)) + k_inhib for f in range(0, len(theta))] 
-        ###    
+        #    
         vE_NEW=np.roll(v_E_new,i)
         vI_NEW=np.roll(v_I_new,i) 
-        ###    
+        # 
         WE[:,i]=vE_NEW
         WI[:,i]=vI_NEW
     
