@@ -196,14 +196,6 @@ def gauss(x,mu,sigma,A):
 
 
 
-model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=70, order_2=False, 
-               tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
-               GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
-               kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
-               N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
-
-
-
 # fs=[]
 
 # #f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1) 
@@ -290,9 +282,9 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     
     
     #
-    target = target+ np.random.normal(0, 0.06, N)
+    target = target+ np.random.normal(0, 0.01, N)
     target=reshape(target, (N,1))
-    distractor = distractor+ np.random.normal(0, 0.06, N)
+    distractor = distractor+ np.random.normal(0, 0.01, N)
     distractor=reshape(distractor, (N,1)) 
     # Model   
     rE=np.zeros((N,1));
@@ -304,7 +296,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     p_u=np.ones((N,nsteps));
     p_x=np.ones((N,nsteps));
     #
-    f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     ## Different quadrant_selectivity options gaussian
     I0E_standard = 0.6 #0.9 #I0E
     I0E_open =  1.2 #I0E_standard + 0.5
@@ -320,6 +311,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         quadrant_selectivity= quadrant_selectivity_standard  
     ##
     ### diferential equations
+    alpha_r = 10
+    f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
         noiseI = sigI*random.randn(N,1);
@@ -345,8 +338,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
 
         #####################################################
         #rates of exit and inhib   
-        rE = rE + (f(IE) - rE + noiseE)*dt/tauE;
-        rI = rI + (f(II) - rI + noiseI)*dt/tauI;
+        rE = rE + (f(IE) - rE + noiseE)*dt/tauE ;
+        rI = rI + (f(II)  - rI + noiseI)*dt/tauI ;
         ### formulas for synaptic plasticity: paper mongillo 2008
         u = u + ((U - u) / tauf + U*(1-u)*rE/1000)*dt;
         x = x + ((1 - x)/taud - u*x*rE/1000)*dt;
@@ -523,3 +516,10 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
 # model(totalTime=9600, targ_onset = 3950, dist_onset=200, presentation_period=250, separation=3, 
 #     inhib_curr=True, time_ex_input=0,  sigE=1.2, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
 ###
+
+
+model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=120, order_2=False, 
+               tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
+               GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
+               kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
+               N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
