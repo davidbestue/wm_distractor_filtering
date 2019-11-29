@@ -297,7 +297,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
 
     alpha=1000
     rE=np.zeros((N,1))*alpha;
-    rI=np.zeros((N,1))*alpha; 
+    rI=np.zeros((N,1)); 
     u = np.ones((N,1))*U
     x = np.ones((N,1))
     RE=np.zeros((N,nsteps));
@@ -350,8 +350,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         rE = alpha_r * (rE + (f(IE*alpha) - rE + noiseE)*dt/tauE );
         rI = alpha_r * (rI + (f(II*alpha)  - rI + noiseI)*dt/tauI );
         ### formulas for synaptic plasticity: paper mongillo 2008
-        u = u + ((U - u) / tauf + U*(1-u)*rE/1000)*dt;
-        x = x + ((1 - x)/taud - u*x*rE/1000)*dt;
+        u = u + ((U - u) / tauf + U*(1-u)*rE/alpha)*dt;
+        x = x + ((1 - x)/taud - u*x*rE/alpha)*dt;
         #
         rEr=np.reshape(rE, N)
         rIr=np.reshape(rI, N)
@@ -656,34 +656,34 @@ model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, a
 
 
 
-# alpha_r = 1
-# f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
-# for i in range(0, nsteps):
-#     noiseE = sigE*random.randn(N,1);
-#     noiseI = sigI*random.randn(N,1);
-#     #differential equations for connectivity
-#     IE= GEE*dot(WE, (rE/1000*u*x)) - GIE*dot(WI, (rI/1000) ) + quadrant_selectivity;
-#     II= GEI*dot(WE, rE/1000 ) +  (I0I-GII*mean(rI/1000))*ones((N,1));
-#     #
-#     if i>targon and i<targoff:
-#         IE=IE+target;
-#         II=II+target;
-#     #
-#     if i>diston and i<distoff:
-#         IE=IE+distractor;
-#         II=II+distractor;
-#     #
-#     if i< targon:
-#         if order_2==True:
-#            quadrant_selectivity = quadrant_selectivity_close
-#         elif order_2==False:
-#            quadrant_selectivity = quadrant_selectivity_standard
-#     else:
-#         quadrant_selectivity = quadrant_selectivity_open
-#     #####################################################
-#     #rates of exit and inhib   
-#     rE =  rE + (f(IE*1000) - rE + noiseE)*dt/tauE ;
-#     rI =  rI + (f(II*1000)  - rI + noiseI)*dt/tauI ;
+alpha_r = 1
+f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
+for i in range(0, nsteps):
+    noiseE = sigE*random.randn(N,1);
+    noiseI = sigI*random.randn(N,1);
+    #differential equations for connectivity
+    IE= GEE*dot(WE, (rE/1000*u*x)) - GIE*dot(WI, (rI/1000) ) + quadrant_selectivity;
+    II= GEI*dot(WE, rE/1000 ) +  (I0I-GII*mean(rI/1000))*ones((N,1));
+    #
+    if i>targon and i<targoff:
+        IE=IE+target;
+        II=II+target;
+    #
+    if i>diston and i<distoff:
+        IE=IE+distractor;
+        II=II+distractor;
+    #
+    if i< targon:
+        if order_2==True:
+           quadrant_selectivity = quadrant_selectivity_close
+        elif order_2==False:
+           quadrant_selectivity = quadrant_selectivity_standard
+    else:
+        quadrant_selectivity = quadrant_selectivity_open
+    #####################################################
+    #rates of exit and inhib   
+    rE =  rE + (f(IE*1000) - rE + noiseE)*dt/tauE ;
+    rI =  rI + (f(II*1000)  - rI + noiseI)*dt/tauI ;
 
 
 
