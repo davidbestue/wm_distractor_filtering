@@ -353,8 +353,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         ### formulas for synaptic plasticity: paper mongillo 2008
         u = u + ((U - u) / tauf + U*(1-u)*(rE/mf)/1000)*dt;
         x = x + ((1 - x)/taud - u*x*(rE/mf)/1000)*dt;
-        rEr=np.reshape(rE, N)
-        rIr=np.reshape(rI, N)
+        rEr=np.reshape(rE, N)*10
+        rIr=np.reshape(rI, N)*10
         ur=np.reshape(u, N)
         xr=np.reshape(x, N)
         #append
