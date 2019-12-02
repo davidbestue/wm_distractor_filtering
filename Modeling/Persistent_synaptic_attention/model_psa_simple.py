@@ -730,3 +730,92 @@ plt.plot([dist_onset/2, dist_onset/2,], [0+20, N-20], 'k-')
 plt.plot([dist_offset/2, dist_offset/2,], [0+20, N-20], 'k--')
 plt.legend()
 plt.show(block=False)
+
+
+
+
+rE=np.zeros((N,1));
+rI=np.zeros((N,1)); 
+u = np.ones((N,1))*U
+x = np.ones((N,1))
+RE=np.zeros((N,nsteps));
+RI=np.zeros((N,nsteps));
+p_u=np.ones((N,nsteps));
+p_x=np.ones((N,nsteps));
+
+
+
+I0E_standard = 0.9 #I0E
+I0E_open =  1.2 #I0E_standard + 0.5
+I0E_close= 0.6 #I0E_standard -0.35
+if order_2 == True: 
+    I0E = I0E_close 
+else:
+    I0E = I0E_standard
+
+
+quadrant_selectivity_close = model_I0E_constant(I0E_close)
+#quadrant_selectivity_open = model_I0E_guass( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
+quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
+quadrant_selectivity_standard = model_I0E_constant(I0E_standard)
+quadrant_selectivity = quadrant_selectivity_standard
+
+### diferential equations
+for i in range(0, nsteps):
+    noiseE = sigE*random.randn(N,1);
+    noiseI = sigI*random.randn(N,1);
+    #differential equations for connectivity
+    #IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI,rI) + I0E* ones((N,1)); 
+    IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI,rI) + quadrant_selectivity;
+    II= GEI*dot(WE,rE) +  (I0I-GII*mean(rI))*ones((N,1));
+    if i>targon and i<targoff:
+        IE=IE+target;
+        II=II+target;
+    if i>diston and i<distoff:
+        IE=IE+distractor;
+        II=II+distractor;
+    if order_2 == True: ### order 2
+        if i< targon:
+            #I0E=I0E_close
+            quadrant_selectivity = quadrant_selectivity_close
+        ###
+        ### General
+        ###
+        if i > targon and i < targoff:
+            #I0E=I0E_open
+            quadrant_selectivity = quadrant_selectivity_open
+        if i > targoff:
+            #I0E = I0E_standard
+            quadrant_selectivity = quadrant_selectivity_open
+        ####
+    #####
+    elif order_2 == False: ### order 1
+        if i< targon:
+            quadrant_selectivity = quadrant_selectivity_standard
+        ### General
+        ###
+        if i > targon and i < targoff:
+            #I0E=I0E_open
+            quadrant_selectivity = quadrant_selectivity_open
+        if i > targoff:
+            #I0E = I0E_open
+            quadrant_selectivity = quadrant_selectivity_open
+        ####
+    #####################################################
+    #####################################################
+    #rates of exit and inhib   
+    rE = rE + (f(IE) - rE + noiseE)*dt/tauE;
+    rI = rI + (f(II) - rI + noiseI)*dt/tauI;
+    ### formulas for synaptic plasticity: paper mongillo 2008
+    u = u + ((U - u) / tauf + U*(1-u)*rE/1000)*dt;
+    x = x + ((1 - x)/taud - u*x*rE/1000)*dt;
+    rEr=np.reshape(rE, N)*100
+    rIr=np.reshape(rI, N)*100
+    ur=np.reshape(u, N)
+    xr=np.reshape(x, N)
+    #append
+    RE[:,i] = rEr;
+    RI[:,i] = rIr;
+    p_u[:,i] = ur;
+    p_x[:,i] = xr;
+    
