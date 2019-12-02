@@ -217,19 +217,22 @@ def gauss(x,mu,sigma,A):
 
 
 
-
+               # tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
+               # GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
+               # kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
+               # N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True ):
 
 
 
 
 ##model
-def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separation, order_2, 
-               tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
-               GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
-               kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
-               N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True ):
-    
-    # Temporal and spatial settings
+def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separation, order_2,  
+    tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
+    GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.06, sigI=0.04,
+    kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
+    N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True ):
+    ##
+    #Temporal and spatial settings
     st_sim =time.time()
     dt=2;
     nsteps=int(floor(totalTime/dt));
@@ -523,12 +526,21 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
 ###
 
 
-r = model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=120, order_2=False, 
-               tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
-               GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
-               kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
-               N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
+# r = model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=120, order_2=False, 
+#                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
+#                GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
+#                kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
+#                N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
 
+
+
+
+
+r = model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=120, order_2=False,
+    tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
+    GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
+    kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
+    N=512, plot_connectivity=True, plot_dyniamic=True, plot_heatmap=True, plot_fit=True )
 
 
 
@@ -699,4 +711,20 @@ r = model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=25
 
 
 
-
+# p_dist= int((N * np.degrees(origin - stim_sep))/360)
+# plt.figure(figsize=(9,6))
+# sns.heatmap(RE, cmap='viridis')
+# plt.title('BUMP activity')
+# plt.ylabel('Angle')
+# plt.xlabel('time')
+# plt.plot([targon, nsteps], [p_targ, p_targ], '--b',) ## flipped, so it is p_target 
+# plt.plot([diston, nsteps], [p_dist, p_dist], '--r',) ## flipped, so it is p_target 
+# plt.yticks([])
+# plt.xticks([])
+# plt.yticks([N/8, 3*N/8, 5*N/8, 7*N/8 ] ,['45','135','225', '315'])
+# plt.plot([targ_onset/2, targ_onset/2,], [0+20, N-20], 'k-', label='onset')
+# plt.plot([targ_offset/2, targ_offset/2,], [0+20, N-20], 'k--', label='offset')
+# plt.plot([dist_onset/2, dist_onset/2,], [0+20, N-20], 'k-')
+# plt.plot([dist_offset/2, dist_offset/2,], [0+20, N-20], 'k--')
+# plt.legend()
+# plt.show(block=False)
