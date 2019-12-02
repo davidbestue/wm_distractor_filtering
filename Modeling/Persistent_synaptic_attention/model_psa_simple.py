@@ -293,10 +293,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     target=reshape(target, (N,1))
     distractor = distractor+ np.random.normal(0, 0.01, N)
     distractor=reshape(distractor, (N,1)) 
-    # Model   
-
-    alpha=1000
-    rE=np.zeros((N,1))*alpha;
+    # Model
+    rE=np.zeros((N,1));
     rI=np.zeros((N,1)); 
     u = np.ones((N,1))*U
     x = np.ones((N,1))
@@ -320,14 +318,14 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         quadrant_selectivity= quadrant_selectivity_standard  
     ##
     ### diferential equations
-    alpha_r = 10
+    alpha_r = 1000
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
         noiseI = sigI*random.randn(N,1);
         #differential equations for connectivity
-        IE= GEE*dot(WE, (rE/alpha*u*x)) - GIE*dot(WI,rI/alpha) + quadrant_selectivity;
-        II= GEI*dot(WE,rE/alpha) +  (I0I-GII*mean(rI/alpha))*ones((N,1));
+        IE= GEE*dot(WE, (rE/alpha_r*u*x)) - GIE*dot(WI, (rI/alpha_r) ) + quadrant_selectivity;
+        II= GEI*dot(WE, rE/alpha_r ) +  (I0I-GII*mean(rI/alpha_r))*ones((N,1));
         #
         if i>targon and i<targoff:
             IE=IE+target;
@@ -344,14 +342,12 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
                quadrant_selectivity = quadrant_selectivity_standard
         else:
             quadrant_selectivity = quadrant_selectivity_open
-
         #####################################################
         #rates of exit and inhib   
-        rE = alpha_r * (rE + (f(IE*alpha) - rE + noiseE)*dt/tauE );
-        rI = alpha_r * (rI + (f(II*alpha)  - rI + noiseI)*dt/tauI );
-        ### formulas for synaptic plasticity: paper mongillo 2008
-        u = u + ((U - u) / tauf + U*(1-u)*rE/alpha)*dt;
-        x = x + ((1 - x)/taud - u*x*rE/alpha)*dt;
+        rE =  rE + (f(IE*1000) - rE + noiseE)*dt/tauE ;
+        rI =  rI + (f(II*1000)  - rI + noiseI)*dt/tauI ;
+        u = u + ((U - u) / tauf + U*(1-u)*rE/alpha_r)*dt;
+        x = x + ((1 - x)/taud - u*x*rE/alpha_r)*dt;
         #
         rEr=np.reshape(rE, N)
         rIr=np.reshape(rI, N)
@@ -362,8 +358,11 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         RI[:,i] = rIr;
         p_u[:,i] = ur;
         p_x[:,i] = xr;
-    
-    
+        #
+        rE=rE/alpha_r
+        rI=rI/alpha_r
+    #
+    #
     #### Interference
     interference = Interference_effects( [decode_rE(target)], [decode_rE(rE)], [decode_rE(distractor)])[0]
     p_targ = int((N * np.degrees(origin + stim_sep))/360)
@@ -467,7 +466,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         #print(np.degrees( origin - pi/separation), decode_rE(target))
         #print(np.degrees( origin + pi/separation), decode_rE(distractor))
         #print(targ_ang, dist_ang)
-
+    #
     elif number_of_bumps ==1:
         target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
         distractor_pos_pi_pi = decode_rE(distractor) * 2*pi / 360 -pi
@@ -686,7 +685,21 @@ for i in range(0, nsteps):
     rI =  rI + (f(II*1000)  - rI + noiseI)*dt/tauI ;
     u = u + ((U - u) / tauf + U*(1-u)*rE/alpha_r)*dt;
     x = x + ((1 - x)/taud - u*x*rE/alpha_r)*dt;
+    #
+    rEr=np.reshape(rE, N)
+    rIr=np.reshape(rI, N)
+    ur=np.reshape(u, N)
+    xr=np.reshape(x, N)
+    #append
+    RE[:,i] = rEr;
+    RI[:,i] = rIr;
+    p_u[:,i] = ur;
+    p_x[:,i] = xr;
+    #
     rE=rE/alpha_r
-    rI=rI/alpha
+    rI=rI/alpha_r
+
+
+
 
 
