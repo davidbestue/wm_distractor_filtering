@@ -297,6 +297,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     distractor = distractor+ np.random.normal(0, 0.01, N)
     distractor=reshape(distractor, (N,1)) 
     # Model
+    mf=100
     rE=np.zeros((N,1))+mf;
     rI=np.zeros((N,1)); 
     u = np.ones((N,1))*U
@@ -320,8 +321,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     else:
         quadrant_selectivity= quadrant_selectivity_standard  
     ##
-    ### diferential equations
-    mf=100
+    ### diferential equations    
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
