@@ -650,7 +650,7 @@ p_u=np.ones((N,nsteps));
 p_x=np.ones((N,nsteps));
 #
 ## Different quadrant_selectivity options gaussian
-I0E_standard = 0.6 #0.9 #I0E
+I0E_standard = 1.2 #0.9 #I0E
 I0E_open =  1.2 #I0E_standard + 0.5
 I0E_close= 0.6 #I0E_standard -0.35
 quadrant_selectivity_close = model_I0E_constant(I0E_standard) #model_I0E_constant(I0E_close)
@@ -672,7 +672,7 @@ for i in range(0, nsteps):
     noiseE = sigE*random.randn(N,1);
     noiseI = sigI*random.randn(N,1);
     #differential equations for connectivity
-    IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI, (rI) ) + quadrant_selectivity;
+    IE= GEE*dot(WE, (rE*u*x)) - GIE*dot(WI, rI ) + quadrant_selectivity;
     II= GEI*dot(WE, rE) +  (I0I-GII*mean(rI))*ones((N,1));
     #
     if i>targon and i<targoff:
@@ -697,8 +697,8 @@ for i in range(0, nsteps):
     u = u + ((U - u) / tauf + U*(1-u)*rE)*dt;
     x = x + ((1 - x)/taud - u*x*rE)*dt;
     #
-    rEr=np.reshape(rE, N)*1000
-    rIr=np.reshape(rI, N)*1000
+    rEr=np.reshape(rE, N)
+    rIr=np.reshape(rI, N)
     ur=np.reshape(u, N)
     xr=np.reshape(x, N)
     #append
