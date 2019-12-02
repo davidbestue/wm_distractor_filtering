@@ -318,7 +318,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         quadrant_selectivity= quadrant_selectivity_standard  
     ##
     ### diferential equations
-    alpha_r = 1000
+    alpha_r = 1
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
@@ -344,8 +344,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
             quadrant_selectivity = quadrant_selectivity_open
         #####################################################
         #rates of exit and inhib   
-        rE =  rE + (f(IE*1000) - rE + noiseE)*dt/tauE ;
-        rI =  rI + (f(II*1000)  - rI + noiseI)*dt/tauI ;
+        rE =  rE + (f(IE*alpha_r) - rE + noiseE)*dt/tauE ;
+        rI =  rI + (f(II*alpha_r)  - rI + noiseI)*dt/tauI ;
         u = u + ((U - u) / tauf + U*(1-u)*rE/alpha_r)*dt;
         x = x + ((1 - x)/taud - u*x*rE/alpha_r)*dt;
         #
