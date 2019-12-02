@@ -310,8 +310,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     I0E_standard = 0.6 #0.6 #0.9 #I0E
     I0E_open =  1.2 #I0E_standard + 0.5
     I0E_close= 0.6 #I0E_standard -0.35
-    quadrant_selectivity_close = model_I0E_constant(I0E_open) #model_I0E_constant(I0E_close)
-    quadrant_selectivity_open = model_I0E_constant(I0E_open) # model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
+    quadrant_selectivity_close = model_I0E_constant(I0E_close)
+    quadrant_selectivity_open =  model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_standard = model_I0E_constant(I0E_open)
     quadrant_selectivity = quadrant_selectivity_standard
     ##
