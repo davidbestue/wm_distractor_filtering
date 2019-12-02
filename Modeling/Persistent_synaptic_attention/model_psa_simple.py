@@ -361,7 +361,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         RE[:,i] = rEr;
         RI[:,i] = rIr;
         p_u[:,i] = ur;
-        p_x[:,i] = xr;    #
+        p_x[:,i] = xr;    
     #
     #### Interference
     interference = Interference_effects( [decode_rE(target)], [decode_rE(rE)], [decode_rE(distractor)])[0]
