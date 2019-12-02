@@ -307,7 +307,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     p_x=np.ones((N,nsteps));
     #
     ## Different quadrant_selectivity options gaussian
-    I0E_standard = 0.6 #0.9 #I0E
+    I0E_standard = 0.6 #0.6 #0.9 #I0E
     I0E_open =  1.2 #I0E_standard + 0.5
     I0E_close= 0.6 #I0E_standard -0.35
     quadrant_selectivity_close = model_I0E_constant(I0E_standard) #model_I0E_constant(I0E_close)
@@ -321,7 +321,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         quadrant_selectivity= quadrant_selectivity_standard  
     ##
     ### diferential equations
-    alpha_r = 100000
+    alpha_r = 100000 # 100000
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
@@ -347,8 +347,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
             quadrant_selectivity = quadrant_selectivity_open
         #####################################################
         #rates of exit and inhib   
-        rE =  rE + (f(IE*alpha_r) - rE + noiseE)*dt/tauE ;
-        rI =  rI + (f(II*alpha_r)  - rI + noiseI)*dt/tauI ;
+        rE =  (rE + (f(IE) - rE + noiseE)*dt/tauE  )  *alpha_r;
+        rI =  (rI + (f(II)  - rI + noiseI)*dt/tauI )  *alpha_r;
         u = u + ((U - u) / tauf + U*(1-u)*rE/alpha_r)*dt;
         x = x + ((1 - x)/taud - u*x*rE/alpha_r)*dt;
         #
