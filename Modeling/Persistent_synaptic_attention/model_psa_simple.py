@@ -653,8 +653,8 @@ p_x=np.ones((N,nsteps));
 I0E_standard = 0.6 #0.9 #I0E
 I0E_open =  1.2 #I0E_standard + 0.5
 I0E_close= 0.6 #I0E_standard -0.35
-quadrant_selectivity_close = model_I0E_constant(I0E_close)
-quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
+quadrant_selectivity_close = model_I0E_constant(I0E_standard) #model_I0E_constant(I0E_close)
+quadrant_selectivity_open = model_I0E_constant(I0E_standard)#model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
 quadrant_selectivity_standard = model_I0E_constant(I0E_standard)
 quadrant_selectivity = quadrant_selectivity_standard
 ##
