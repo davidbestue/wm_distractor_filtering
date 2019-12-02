@@ -713,6 +713,7 @@ for i in range(0, nsteps):
 
 
 
+p_targ = int((N * np.degrees(origin + stim_sep))/360)
 p_dist= int((N * np.degrees(origin - stim_sep))/360)
 plt.figure(figsize=(9,6))
 sns.heatmap(RE, cmap='viridis')
