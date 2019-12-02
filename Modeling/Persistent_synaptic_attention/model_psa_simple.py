@@ -523,7 +523,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
 ###
 
 
-model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=120, order_2=False, 
+r = model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=250, angle_separation=120, order_2=False, 
                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
                GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
                kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
