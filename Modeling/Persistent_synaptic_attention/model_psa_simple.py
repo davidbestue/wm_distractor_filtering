@@ -298,7 +298,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     distractor=reshape(distractor, (N,1)) 
     # Model
     mf=10
-    rE=np.zeros((N,1))+mf;
+    rE=np.zeros((N,1));
     rI=np.zeros((N,1)); 
     u = np.ones((N,1))*U
     x = np.ones((N,1))
