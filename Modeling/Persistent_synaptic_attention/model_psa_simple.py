@@ -297,7 +297,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     distractor = distractor+ np.random.normal(0, 0.01, N)
     distractor=reshape(distractor, (N,1)) 
     # Model
-    mf=10
+    mf=1
     rE=np.zeros((N,1));
     rI=np.zeros((N,1)); 
     u = np.ones((N,1))*U
@@ -308,9 +308,9 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
     p_x=np.ones((N,nsteps));
     #
     ## Different quadrant_selectivity options gaussian
-    I0E_standard = 0.6 #0.6 #0.9 #I0E
+    I0E_standard = 0.8 #0.6 #0.9 #I0E
     I0E_open =  1.2 #I0E_standard + 0.5
-    I0E_close= 0.6 #I0E_standard -0.35
+    I0E_close= 0.5 #I0E_standard -0.35
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
     quadrant_selectivity_open =  model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_standard = model_I0E_constant(I0E_open)
@@ -353,7 +353,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         ### formulas for synaptic plasticity: paper mongillo 2008
         u = u + ((U - u) / tauf + U*(1-u)*(rE/mf)/1000)*dt;
         x = x + ((1 - x)/taud - u*x*(rE/mf)/1000)*dt;
-        rEr=np.reshape(rE, N)
+        rEr=np.reshape(rE, N)*10
         rIr=np.reshape(rI, N)
         ur=np.reshape(u, N)
         xr=np.reshape(x, N)
