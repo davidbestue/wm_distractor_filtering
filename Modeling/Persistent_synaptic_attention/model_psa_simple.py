@@ -321,7 +321,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         quadrant_selectivity= quadrant_selectivity_standard  
     ##
     ### diferential equations
-    alpha_r = 1
+    alpha_r = 100000
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
@@ -546,187 +546,187 @@ r = model(totalTime=3000, targ_onset=300, dist_onset=700, presentation_period=25
 
 
 
-totalTime=3000
-targ_onset=300
-dist_onset=700
-presentation_period=250
-angle_separation=120
-order_2=False
-tauE=60
-tauI=10
-tauf=7000
-taud=80
-I0I=0.4
-U=0.4
-GEE=0.016
-GEI=0.015
-GIE=0.012
-GII=0.007
-sigE=0.06
-sigI=0.04 
-kappa_E=100
-kappa_I=1.5
-k_inhib=0.07
-kappa_stim=20
-N=512
-plot_connectivity=True
-plot_dyniamic=True
-plot_heatmap=True
-plot_fit=True 
+# totalTime=3000
+# targ_onset=300
+# dist_onset=700
+# presentation_period=250
+# angle_separation=120
+# order_2=False
+# tauE=60
+# tauI=10
+# tauf=7000
+# taud=80
+# I0I=0.4
+# U=0.4
+# GEE=0.016
+# GEI=0.015
+# GIE=0.012
+# GII=0.007
+# sigE=0.06
+# sigI=0.04 
+# kappa_E=100
+# kappa_I=1.5
+# k_inhib=0.07
+# kappa_stim=20
+# N=512
+# plot_connectivity=True
+# plot_dyniamic=True
+# plot_heatmap=True
+# plot_fit=True 
 
 
 
-st_sim =time.time()
-dt=2;
-nsteps=int(floor(totalTime/dt));
-origin = pi;
-targ_offset = targ_onset + presentation_period;
-targon = floor(targ_onset/dt);
-targoff = floor(targ_offset/dt);
-diston = floor(dist_onset/dt);    
-dist_offset = dist_onset  + presentation_period;
-distoff = floor(dist_offset/dt);
-stim_sep =  angle_separation*pi/360
-angle_target=180+angle_separation/2
-angle_distractor=180-angle_separation/2
-# Connectivitiess
-v_E=np.zeros((N));
-v_I=np.zeros((N));
-WE=np.zeros((N,N));
-WI=np.zeros((N,N));
-theta = [float(range(0,N)[i])/N*2*pi for i in range(0,N)];
-for i in range(0, N):
-    v_E_new=[e**(kappa_E*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_E)) for f in range(0, len(theta))]    
-    v_I_new=[e**(kappa_I*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_I)) + k_inhib for f in range(0, len(theta))] 
-    #    
-    vE_NEW=np.roll(v_E_new,i)
-    vI_NEW=np.roll(v_I_new,i) 
-    # 
-    WE[:,i]=vE_NEW
-    WI[:,i]=vI_NEW
+# st_sim =time.time()
+# dt=2;
+# nsteps=int(floor(totalTime/dt));
+# origin = pi;
+# targ_offset = targ_onset + presentation_period;
+# targon = floor(targ_onset/dt);
+# targoff = floor(targ_offset/dt);
+# diston = floor(dist_onset/dt);    
+# dist_offset = dist_onset  + presentation_period;
+# distoff = floor(dist_offset/dt);
+# stim_sep =  angle_separation*pi/360
+# angle_target=180+angle_separation/2
+# angle_distractor=180-angle_separation/2
+# # Connectivitiess
+# v_E=np.zeros((N));
+# v_I=np.zeros((N));
+# WE=np.zeros((N,N));
+# WI=np.zeros((N,N));
+# theta = [float(range(0,N)[i])/N*2*pi for i in range(0,N)];
+# for i in range(0, N):
+#     v_E_new=[e**(kappa_E*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_E)) for f in range(0, len(theta))]    
+#     v_I_new=[e**(kappa_I*cos(theta[f]))/(2*pi*scipy.special.i0(kappa_I)) + k_inhib for f in range(0, len(theta))] 
+#     #    
+#     vE_NEW=np.roll(v_E_new,i)
+#     vI_NEW=np.roll(v_I_new,i) 
+#     # 
+#     WE[:,i]=vE_NEW
+#     WI[:,i]=vI_NEW
 
-# Plot of the connectivity profile
-if plot_connectivity ==True:
-    plt.figure()
-    plt.plot(WE[250, :], label='E')
-    plt.plot(WI[250, :], label = 'I')
-    plt.ylim(0,6)
-    plt.gca().spines['right'].set_visible(False) #no right axis
-    plt.gca().spines['top'].set_visible(False) #no  top axis
-    plt.gca().get_xaxis().tick_bottom()
-    plt.gca().get_yaxis().tick_left()
-    plt.title('Connectivity WE & WI')
-    plt.show(block=False)
-    plt.figure()
-    plt.plot(WE[250, :] - WI[250, :] , label='E-I')
-    plt.gca().spines['right'].set_visible(False) #no right axis
-    plt.gca().spines['top'].set_visible(False) #no  top axis
-    plt.gca().get_xaxis().tick_bottom()
-    plt.gca().get_yaxis().tick_left()
-    plt.title('Effective onnectivity')
-    plt.show(block=False)
+# # Plot of the connectivity profile
+# if plot_connectivity ==True:
+#     plt.figure()
+#     plt.plot(WE[250, :], label='E')
+#     plt.plot(WI[250, :], label = 'I')
+#     plt.ylim(0,6)
+#     plt.gca().spines['right'].set_visible(False) #no right axis
+#     plt.gca().spines['top'].set_visible(False) #no  top axis
+#     plt.gca().get_xaxis().tick_bottom()
+#     plt.gca().get_yaxis().tick_left()
+#     plt.title('Connectivity WE & WI')
+#     plt.show(block=False)
+#     plt.figure()
+#     plt.plot(WE[250, :] - WI[250, :] , label='E-I')
+#     plt.gca().spines['right'].set_visible(False) #no right axis
+#     plt.gca().spines['top'].set_visible(False) #no  top axis
+#     plt.gca().get_xaxis().tick_bottom()
+#     plt.gca().get_yaxis().tick_left()
+#     plt.title('Effective onnectivity')
+#     plt.show(block=False)
 
-###### Stimuli
-target=np.zeros((N))
-distractor=np.zeros((N))
-for i in range(0, N):
-    target[i]=e**(kappa_stim*cos(theta[i] + origin - stim_sep))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
-    distractor[i]=e**(kappa_stim*cos(theta[i] + origin + stim_sep)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
-
-
-#
-target = target+ np.random.normal(0, 0.01, N)
-target=reshape(target, (N,1))
-distractor = distractor+ np.random.normal(0, 0.01, N)
-distractor=reshape(distractor, (N,1)) 
-# Model   
-rE=np.zeros((N,1))*1000;
-rI=np.zeros((N,1)); 
-u = np.ones((N,1))*U
-x = np.ones((N,1))
-RE=np.zeros((N,nsteps));
-RI=np.zeros((N,nsteps));
-p_u=np.ones((N,nsteps));
-p_x=np.ones((N,nsteps));
-#
-## Different quadrant_selectivity options gaussian
-I0E_standard = 0.6 #0.9 #I0E
-I0E_open =  1.2 #I0E_standard + 0.5
-I0E_close= 0.6 #I0E_standard -0.35
-quadrant_selectivity_close = model_I0E_constant(I0E_close)
-quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
-quadrant_selectivity_standard = model_I0E_constant(I0E_standard)
-quadrant_selectivity = quadrant_selectivity_standard
-##
-if order_2 == True: 
-    quadrant_selectivity = quadrant_selectivity_close  
-else:
-    quadrant_selectivity= quadrant_selectivity_standard 
+# ###### Stimuli
+# target=np.zeros((N))
+# distractor=np.zeros((N))
+# for i in range(0, N):
+#     target[i]=e**(kappa_stim*cos(theta[i] + origin - stim_sep))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
+#     distractor[i]=e**(kappa_stim*cos(theta[i] + origin + stim_sep)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
 
 
-
-
-alpha_r = 10000
-f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
-for i in range(0, nsteps):
-    noiseE = sigE*random.randn(N,1);
-    noiseI = sigI*random.randn(N,1);
-    #differential equations for connectivity
-    IE= GEE*dot(WE, (rE/alpha_r*u*x)) - GIE*dot(WI, (rI/alpha_r) ) + quadrant_selectivity;
-    II= GEI*dot(WE, rE/alpha_r ) +  (I0I-GII*mean(rI/alpha_r))*ones((N,1));
-    #
-    if i>targon and i<targoff:
-        IE=IE+target;
-        II=II+target;
-    #
-    if i>diston and i<distoff:
-        IE=IE+distractor;
-        II=II+distractor;
-    #
-    if i< targon:
-        if order_2==True:
-           quadrant_selectivity = quadrant_selectivity_close
-        elif order_2==False:
-           quadrant_selectivity = quadrant_selectivity_standard
-    else:
-        quadrant_selectivity = quadrant_selectivity_open
-    #####################################################
-    #rates of exit and inhib   
-    rE =  rE + (f(IE*alpha_r) - rE + noiseE)*dt/tauE ;
-    rI =  rI + (f(II*alpha_r)  - rI + noiseI)*dt/tauI ;
-    u = u + ((U - u) / tauf + U*(1-u)*rE/alpha_r)*dt;
-    x = x + ((1 - x)/taud - u*x*rE/alpha_r)*dt;
-    #
-    rEr=np.reshape(rE, N)
-    rIr=np.reshape(rI, N)
-    ur=np.reshape(u, N)
-    xr=np.reshape(x, N)
-    #append
-    RE[:,i] = rEr;
-    RI[:,i] = rIr;
-    p_u[:,i] = ur;
-    p_x[:,i] = xr;
-    #
-    rE=rE/alpha_r
-    rI=rI/alpha_r
+# #
+# target = target+ np.random.normal(0, 0.01, N)
+# target=reshape(target, (N,1))
+# distractor = distractor+ np.random.normal(0, 0.01, N)
+# distractor=reshape(distractor, (N,1)) 
+# # Model   
+# rE=np.zeros((N,1))*1000;
+# rI=np.zeros((N,1)); 
+# u = np.ones((N,1))*U
+# x = np.ones((N,1))
+# RE=np.zeros((N,nsteps));
+# RI=np.zeros((N,nsteps));
+# p_u=np.ones((N,nsteps));
+# p_x=np.ones((N,nsteps));
+# #
+# ## Different quadrant_selectivity options gaussian
+# I0E_standard = 0.6 #0.9 #I0E
+# I0E_open =  1.2 #I0E_standard + 0.5
+# I0E_close= 0.6 #I0E_standard -0.35
+# quadrant_selectivity_close = model_I0E_constant(I0E_close)
+# quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
+# quadrant_selectivity_standard = model_I0E_constant(I0E_standard)
+# quadrant_selectivity = quadrant_selectivity_standard
+# ##
+# if order_2 == True: 
+#     quadrant_selectivity = quadrant_selectivity_close  
+# else:
+#     quadrant_selectivity= quadrant_selectivity_standard 
 
 
 
 
-p_dist= int((N * np.degrees(origin - stim_sep))/360)
-plt.figure(figsize=(9,6))
-sns.heatmap(RE, cmap='viridis')
-plt.title('BUMP activity')
-plt.ylabel('Angle')
-plt.xlabel('time')
-plt.plot([targon, nsteps], [p_targ, p_targ], '--b',) ## flipped, so it is p_target 
-plt.plot([diston, nsteps], [p_dist, p_dist], '--r',) ## flipped, so it is p_target 
-plt.yticks([])
-plt.xticks([])
-plt.yticks([N/8, 3*N/8, 5*N/8, 7*N/8 ] ,['45','135','225', '315'])
-plt.plot([targ_onset/2, targ_onset/2,], [0+20, N-20], 'k-', label='onset')
-plt.plot([targ_offset/2, targ_offset/2,], [0+20, N-20], 'k--', label='offset')
-plt.plot([dist_onset/2, dist_onset/2,], [0+20, N-20], 'k-')
-plt.plot([dist_offset/2, dist_offset/2,], [0+20, N-20], 'k--')
-plt.legend()
-plt.show(block=False)
+# alpha_r = 100000
+# f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
+# for i in range(0, nsteps):
+#     noiseE = sigE*random.randn(N,1);
+#     noiseI = sigI*random.randn(N,1);
+#     #differential equations for connectivity
+#     IE= GEE*dot(WE, (rE/alpha_r*u*x)) - GIE*dot(WI, (rI/alpha_r) ) + quadrant_selectivity;
+#     II= GEI*dot(WE, rE/alpha_r ) +  (I0I-GII*mean(rI/alpha_r))*ones((N,1));
+#     #
+#     if i>targon and i<targoff:
+#         IE=IE+target;
+#         II=II+target;
+#     #
+#     if i>diston and i<distoff:
+#         IE=IE+distractor;
+#         II=II+distractor;
+#     #
+#     if i< targon:
+#         if order_2==True:
+#            quadrant_selectivity = quadrant_selectivity_close
+#         elif order_2==False:
+#            quadrant_selectivity = quadrant_selectivity_standard
+#     else:
+#         quadrant_selectivity = quadrant_selectivity_open
+#     #####################################################
+#     #rates of exit and inhib   
+#     rE =  rE + (f(IE*alpha_r) - rE + noiseE)*dt/tauE ;
+#     rI =  rI + (f(II*alpha_r)  - rI + noiseI)*dt/tauI ;
+#     u = u + ((U - u) / tauf + U*(1-u)*rE/alpha_r)*dt;
+#     x = x + ((1 - x)/taud - u*x*rE/alpha_r)*dt;
+#     #
+#     rEr=np.reshape(rE, N)
+#     rIr=np.reshape(rI, N)
+#     ur=np.reshape(u, N)
+#     xr=np.reshape(x, N)
+#     #append
+#     RE[:,i] = rEr;
+#     RI[:,i] = rIr;
+#     p_u[:,i] = ur;
+#     p_x[:,i] = xr;
+#     #
+#     rE=rE/alpha_r
+#     rI=rI/alpha_r
+
+
+
+
+# p_dist= int((N * np.degrees(origin - stim_sep))/360)
+# plt.figure(figsize=(9,6))
+# sns.heatmap(RE, cmap='viridis')
+# plt.title('BUMP activity')
+# plt.ylabel('Angle')
+# plt.xlabel('time')
+# plt.plot([targon, nsteps], [p_targ, p_targ], '--b',) ## flipped, so it is p_target 
+# plt.plot([diston, nsteps], [p_dist, p_dist], '--r',) ## flipped, so it is p_target 
+# plt.yticks([])
+# plt.xticks([])
+# plt.yticks([N/8, 3*N/8, 5*N/8, 7*N/8 ] ,['45','135','225', '315'])
+# plt.plot([targ_onset/2, targ_onset/2,], [0+20, N-20], 'k-', label='onset')
+# plt.plot([targ_offset/2, targ_offset/2,], [0+20, N-20], 'k--', label='offset')
+# plt.plot([dist_onset/2, dist_onset/2,], [0+20, N-20], 'k-')
+# plt.plot([dist_offset/2, dist_offset/2,], [0+20, N-20], 'k--')
+# plt.legend()
+# plt.show(block=False)
