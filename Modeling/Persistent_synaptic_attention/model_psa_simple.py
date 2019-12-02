@@ -321,7 +321,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
         quadrant_selectivity= quadrant_selectivity_standard  
     ##
     ### diferential equations
-    alpha_r = 100000 # 100000
+    alpha_r = 10 # 100000
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     for i in range(0, nsteps):
         noiseE = sigE*random.randn(N,1);
