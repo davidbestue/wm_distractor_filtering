@@ -348,13 +348,13 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
             quadrant_selectivity = quadrant_selectivity_open
         #####################################################
         #rates of exit and inhib   
-        rE = rE + (f(IE)*mf - rE + noiseE)*dt/tauE;
-        rI = rI + (f(II)*mf - rI + noiseI)*dt/tauI;
+        rE = rE*mf + (f(IE)*mf - rE*mf + noiseE)*dt/tauE;
+        rI = rI*mf + (f(II)*mf - rI*mf + noiseI)*dt/tauI;
         ### formulas for synaptic plasticity: paper mongillo 2008
         u = u + ((U - u) / tauf + U*(1-u)*(rE/mf)/1000)*dt;
         x = x + ((1 - x)/taud - u*x*(rE/mf)/1000)*dt;
-        rEr=np.reshape(rE, N)*10
-        rIr=np.reshape(rI, N)*10
+        rEr=np.reshape(rE, N)
+        rIr=np.reshape(rI, N)
         ur=np.reshape(u, N)
         xr=np.reshape(x, N)
         #append
