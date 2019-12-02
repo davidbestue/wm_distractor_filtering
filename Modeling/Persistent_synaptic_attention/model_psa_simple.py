@@ -335,7 +335,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, angle_separati
             IE=IE+target;
             II=II+target;
         #
-        if i>diston and i<distoff:
+        if i>diston and i<distoff: ## during the stimulus presentation 
             IE=IE+distractor;
             II=II+distractor;
         #
