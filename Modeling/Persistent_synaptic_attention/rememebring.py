@@ -294,7 +294,7 @@ def plot_of_connectivity(WE, WI):
 
 
 
-def readout_2(target, distractor, X):
+def readout_2(target, distractor, X, y):
     target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
     distractor_pos_pi_pi = decode_rE(distractor) * 2*pi / 360 -pi
     param, covs = curve_fit(bi_von_misses, X, y, p0=[target_pos_pi_pi + pi, -36,  distractor_pos_pi_pi - pi, -36]) #p0=[separation, 75, -separation, 75]
@@ -320,7 +320,7 @@ def readout_2(target, distractor, X):
 
 
 
-def readout_1(target, distractor, X):
+def readout_1(target, distractor, X,y):
     target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
     distractor_pos_pi_pi = decode_rE(distractor) * 2*pi / 360 -pi
     #param, covs = curve_fit(bi_von_misses, X, y, p0=[target_pos_pi_pi + pi, -36,  distractor_pos_pi_pi - pi, -36]) #p0=[separation, 75, -separation, 75]
@@ -503,10 +503,12 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     ##
     ### Fit
     if number_of_bumps ==2:
-        bias_target, bias_dist, final_bias, skip_r_sq, success, ans = readout_2(target, distractor, X)
+        readout = readout_2(target, distractor, X, y)
+        bias_target, bias_dist, final_bias, skip_r_sq, success, ans = readout
 
     elif number_of_bumps ==1:
-        bias_target, bias_dist, final_bias, skip_r_sq, success, ans = readout_1(target, distractor, X)
+        readout = readout_1(target, distractor, X, y)
+        bias_target, bias_dist, final_bias, skip_r_sq, success, ans = readout
     else:
         print('Error simultaion')
         bias_target, bias_dist = [999, 999]
