@@ -249,7 +249,7 @@ def plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE):
 ###
 
 
-def plot_of_heatmap(N, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
+def plot_of_heatmap(N, nsteps, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
     #### plot heatmap
     p_dist= int((N * np.degrees(origin - stim_sep))/360)
     plt.figure(figsize=(9,6))
@@ -432,7 +432,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE)
     #
     if plot_heatmap==True:
-        plot_of_heatmap(N, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset,
+        plot_of_heatmap(N, nsteps, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset,
         dist_onset, dist_offset )
     ##
     ## print time consumed in each simulation
