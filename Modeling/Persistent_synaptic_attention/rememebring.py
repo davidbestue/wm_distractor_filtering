@@ -294,6 +294,58 @@ def plot_of_connectivity(WE, WI):
 
 
 
+def readout_2(target, distractor, X):
+    target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
+    distractor_pos_pi_pi = decode_rE(distractor) * 2*pi / 360 -pi
+    param, covs = curve_fit(bi_von_misses, X, y, p0=[target_pos_pi_pi + pi, -36,  distractor_pos_pi_pi - pi, -36]) #p0=[separation, 75, -separation, 75]
+    ans = (exp( param[1] * cos(X-param[0]))) / (2*pi*scipy.special.i0(param[1])) + (exp( param[3] * cos(X-param[2]))) / (2*pi*scipy.special.i0(param[3])) 
+    estimated_angles=[]
+    for p in [param[0], param[2]]:
+        estim_ang = np.degrees(p)  
+        if estim_ang<0: 
+            estim_ang = 360+estim_ang
+        estimated_angles.append(estim_ang)
+    
+    #print(estimated_angles)
+    #decoded angles
+    decoded_target = closest(estimated_angles, decode_rE(target))
+    decoded_distractor = closest(estimated_angles, decode_rE(distractor))
+    #bias
+    bias_target = Interference_effects(  [decode_rE(target)],  [decoded_target],  [decode_rE(distractor)])[0]
+    bias_dist = Interference_effects(  [decode_rE(distractor)],  [decoded_distractor],  [decode_rE(target)])[0]
+    final_bias = [bias_target, bias_dist]
+    skip_r_sq=False
+    success=True
+    return bias_target, bias_dist, final_bias, skip_r_sq, success
+
+
+
+def readout_1(target, distractor, X):
+    target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
+    distractor_pos_pi_pi = decode_rE(distractor) * 2*pi / 360 -pi
+    #param, covs = curve_fit(bi_von_misses, X, y, p0=[target_pos_pi_pi + pi, -36,  distractor_pos_pi_pi - pi, -36]) #p0=[separation, 75, -separation, 75]
+    #ans = (exp( param[1] * cos(X-param[0]))) / (2*pi*scipy.special.i0(param[1])) + (exp( param[3] * cos(X-param[2]))) / (2*pi*scipy.special.i0(param[3])) 
+    param, covs = curve_fit(gauss, X, y) #p0=[separation, 75, -separation, 75]
+    ans = param[2]*exp(-(X-param[0])**2/2/param[1]**2)      #(exp( param[1] * cos(X-param[0]))) / (2*pi*scipy.special.i0(param[1]))  
+    estimated_angles=[]
+    for p in [param[0]]: #, param[2]]:
+        estim_ang = np.degrees(p) + 180
+        if estim_ang<0:
+            estim_ang = 360+estim_ang
+        estimated_angles.append(estim_ang)
+    
+    decoded_target = closest(estimated_angles, decode_rE(target))
+    #print('Resp: ' + str(decoded_target ) )
+    #print('Targ: ' + str(decode_rE(target)) )
+    #print('Dist: ' + str(decode_rE(distractor) ) )
+    bias_target = Interference_effects(  [decode_rE(target)],  [decoded_target],  [decode_rE(distractor)])[0]
+    bias_dist = 0
+    final_bias = [bias_target, bias_dist]
+    skip_r_sq=False
+    success=True
+    return bias_target, bias_dist, final_bias, skip_r_sq, success
+
+
 
 
 
@@ -451,53 +503,11 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     ##
     ### Fit
     if number_of_bumps ==2:
-        target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
-        distractor_pos_pi_pi = decode_rE(distractor) * 2*pi / 360 -pi
-        param, covs = curve_fit(bi_von_misses, X, y, p0=[target_pos_pi_pi + pi, -36,  distractor_pos_pi_pi - pi, -36]) #p0=[separation, 75, -separation, 75]
-        ans = (exp( param[1] * cos(X-param[0]))) / (2*pi*scipy.special.i0(param[1])) + (exp( param[3] * cos(X-param[2]))) / (2*pi*scipy.special.i0(param[3])) 
-        estimated_angles=[]
-        for p in [param[0], param[2]]:
-            estim_ang = np.degrees(p)  
-            if estim_ang<0: 
-                estim_ang = 360+estim_ang
-            estimated_angles.append(estim_ang)
-        
-        #print(estimated_angles)
-        #decoded angles
-        decoded_target = closest(estimated_angles, decode_rE(target))
-        decoded_distractor = closest(estimated_angles, decode_rE(distractor))
-        #bias
-        bias_target = Interference_effects(  [decode_rE(target)],  [decoded_target],  [decode_rE(distractor)])[0]
-        bias_dist = Interference_effects(  [decode_rE(distractor)],  [decoded_distractor],  [decode_rE(target)])[0]
-        final_bias = [bias_target, bias_dist]
-        skip_r_sq=False
-        success=True
-        #print(np.degrees( origin - pi/separation), decode_rE(target))
-        #print(np.degrees( origin + pi/separation), decode_rE(distractor))
-        #print(targ_ang, dist_ang)
+        bias_target, bias_dist, final_bias, skip_r_sq, success = readout_2(target, distractor, X)
 
     elif number_of_bumps ==1:
-        target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
-        distractor_pos_pi_pi = decode_rE(distractor) * 2*pi / 360 -pi
-        #param, covs = curve_fit(bi_von_misses, X, y, p0=[target_pos_pi_pi + pi, -36,  distractor_pos_pi_pi - pi, -36]) #p0=[separation, 75, -separation, 75]
-        #ans = (exp( param[1] * cos(X-param[0]))) / (2*pi*scipy.special.i0(param[1])) + (exp( param[3] * cos(X-param[2]))) / (2*pi*scipy.special.i0(param[3])) 
-        param, covs = curve_fit(gauss, X, y) #p0=[separation, 75, -separation, 75]
-        ans = param[2]*exp(-(X-param[0])**2/2/param[1]**2)      #(exp( param[1] * cos(X-param[0]))) / (2*pi*scipy.special.i0(param[1]))  
-        estimated_angles=[]
-        for p in [param[0]]: #, param[2]]:
-            estim_ang = np.degrees(p) + 180
-            if estim_ang<0:
-                estim_ang = 360+estim_ang
-            estimated_angles.append(estim_ang)
-        
-        decoded_target = closest(estimated_angles, decode_rE(target))
-        #print('Resp: ' + str(decoded_target ) )
-        #print('Targ: ' + str(decode_rE(target)) )
-        #print('Dist: ' + str(decode_rE(distractor) ) )
-        bias_target = Interference_effects(  [decode_rE(target)],  [decoded_target],  [decode_rE(distractor)])[0]
-        bias_dist = 0
-        skip_r_sq=False
-        success=True
+        bias_target, bias_dist, final_bias, skip_r_sq, success = = readout_1(target, distractor, X)
+
 
     else:
         print('Error simultaion')
