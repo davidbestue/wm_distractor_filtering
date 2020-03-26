@@ -251,6 +251,7 @@ def plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE):
 
 def plot_of_heatmap(N, nsteps, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
     #### plot heatmap
+    p_targ = int((N * np.degrees(origin + stim_sep))/360)
     p_dist= int((N * np.degrees(origin - stim_sep))/360)
     plt.figure(figsize=(9,6))
     sns.heatmap(RE, cmap='viridis')
