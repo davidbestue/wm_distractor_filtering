@@ -424,6 +424,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     ###
     ###
     number_of_bumps = get_number_bumps(rE, N)
+    y=np.reshape(rE, (N)) 
+    X=np.reshape(np.linspace(-pi, pi, N), N)
     ##
     ##
     ### Fit
