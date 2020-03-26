@@ -219,6 +219,83 @@ def get_number_bumps(rE, N):
     return number_of_bumps
 
 
+
+def plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE):
+    fig = plt.figure()
+    fig.tight_layout()
+    fig.set_size_inches(13, 4)
+    fig.add_subplot(131)
+    p_targ = int((N * np.degrees(origin + stim_sep))/360)
+    plt.title('Synaptic dynamics for target')
+    plt.plot(p_u[p_targ, :], 'b', label='prob. release')
+    plt.plot(p_x[p_targ, :], 'r', label='pool vesicles')
+    plt.xlabel('time (ms)')
+    plt.legend()
+    fig.add_subplot(132)
+    p_dist= int((N * np.degrees(origin - stim_sep))/360)
+    plt.title('Synaptic dynamics for distractor')
+    plt.plot(p_u[p_dist, :], 'b', label='prob.y release')
+    plt.plot(p_x[p_dist, :], 'r', label='pool vesicles')
+    plt.xlabel('time (ms)')
+    plt.legend()
+    fig.add_subplot(133)
+    plt.title('Rate dynamics')
+    plt.plot(RE[p_targ, :], 'b', label='target')
+    plt.plot(RE[p_dist, :], 'r', label='distractor')
+    plt.xlabel('time (ms)')
+    plt.ylabel('rate (Hz)')
+    plt.legend()
+    plt.show(block=False)
+###
+
+
+def plot_of_heatmap(N, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
+    #### plot heatmap
+    p_dist= int((N * np.degrees(origin - stim_sep))/360)
+    plt.figure(figsize=(9,6))
+    sns.heatmap(RE, cmap='viridis')
+    plt.title('BUMP activity')
+    plt.ylabel('Angle')
+    plt.xlabel('time')
+    plt.plot([targon, nsteps], [p_targ, p_targ], '--b',) ## flipped, so it is p_target 
+    plt.plot([diston, nsteps], [p_dist, p_dist], '--r',) ## flipped, so it is p_target 
+    plt.yticks([])
+    plt.xticks([])
+    plt.yticks([N/8, 3*N/8, 5*N/8, 7*N/8 ] ,['45','135','225', '315'])
+    plt.plot([targ_onset/2, targ_onset/2,], [0+20, N-20], 'k-', label='onset')
+    plt.plot([targ_offset/2, targ_offset/2,], [0+20, N-20], 'k--', label='offset')
+    plt.plot([dist_onset/2, dist_onset/2,], [0+20, N-20], 'k-')
+    plt.plot([dist_offset/2, dist_offset/2,], [0+20, N-20], 'k--')
+    plt.legend()
+    plt.show(block=False)
+
+
+
+def plot_of_connectivity(WE, WI):
+    plt.figure()
+    plt.plot(WE[250, :], label='E')
+    plt.plot(WI[250, :], label = 'I')
+    plt.ylim(0,6)
+    plt.gca().spines['right'].set_visible(False) #no right axis
+    plt.gca().spines['top'].set_visible(False) #no  top axis
+    plt.gca().get_xaxis().tick_bottom()
+    plt.gca().get_yaxis().tick_left()
+    plt.title('Connectivity WE & WI')
+    plt.show(block=False)
+    plt.figure()
+    plt.plot(WE[250, :] - WI[250, :] , label='E-I')
+    plt.gca().spines['right'].set_visible(False) #no right axis
+    plt.gca().spines['top'].set_visible(False) #no  top axis
+    plt.gca().get_xaxis().tick_bottom()
+    plt.gca().get_yaxis().tick_left()
+    plt.title('Effective onnectivity')
+    plt.show(block=False)
+
+
+
+
+
+
 ##model
 def model(totalTime, targ_onset, dist_onset, presentation_period, separation, order_2, 
                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
@@ -259,25 +336,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     
     # Plot of the connectivity profile
     if plot_connectivity ==True:
-        plt.figure()
-        plt.plot(WE[250, :], label='E')
-        plt.plot(WI[250, :], label = 'I')
-        plt.ylim(0,6)
-        plt.gca().spines['right'].set_visible(False) #no right axis
-        plt.gca().spines['top'].set_visible(False) #no  top axis
-        plt.gca().get_xaxis().tick_bottom()
-        plt.gca().get_yaxis().tick_left()
-        plt.title('Connectivity WE & WI')
-        plt.show(block=False)
-        plt.figure()
-        plt.plot(WE[250, :] - WI[250, :] , label='E-I')
-        plt.gca().spines['right'].set_visible(False) #no right axis
-        plt.gca().spines['top'].set_visible(False) #no  top axis
-        plt.gca().get_xaxis().tick_bottom()
-        plt.gca().get_yaxis().tick_left()
-        plt.title('Effective onnectivity')
-        plt.show(block=False)
-    
+        plot_of_connectivity(WE, WI)
+    ##
     ###### Stimuli
     target=np.zeros((N))
     distractor=np.zeros((N))
@@ -367,54 +427,14 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     #error = err_deg(readout,  target )
     #interference = Interference_effects( [target], [readout], [distractor])[0]
     p_targ = int((N * np.degrees(origin + stim_sep))/360)
+    p_dist= int((N * np.degrees(origin - stim_sep))/360)
     if plot_dyniamic==True:
-        #### plot dynamics
-        fig = plt.figure()
-        fig.tight_layout()
-        fig.set_size_inches(13, 4)
-        fig.add_subplot(131)
-        p_targ = int((N * np.degrees(origin + stim_sep))/360)
-        plt.title('Synaptic dynamics for target')
-        plt.plot(p_u[p_targ, :], 'b', label='prob. release')
-        plt.plot(p_x[p_targ, :], 'r', label='pool vesicles')
-        plt.xlabel('time (ms)')
-        plt.legend()
-        fig.add_subplot(132)
-        p_dist= int((N * np.degrees(origin - stim_sep))/360)
-        plt.title('Synaptic dynamics for distractor')
-        plt.plot(p_u[p_dist, :], 'b', label='prob.y release')
-        plt.plot(p_x[p_dist, :], 'r', label='pool vesicles')
-        plt.xlabel('time (ms)')
-        plt.legend()
-        fig.add_subplot(133)
-        plt.title('Rate dynamics')
-        plt.plot(RE[p_targ, :], 'b', label='target')
-        plt.plot(RE[p_dist, :], 'r', label='distractor')
-        plt.xlabel('time (ms)')
-        plt.ylabel('rate (Hz)')
-        plt.legend()
-        plt.show(block=False)
+        plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE)
     #
     if plot_heatmap==True:
-        #### plot heatmap
-        p_dist= int((N * np.degrees(origin - stim_sep))/360)
-        plt.figure(figsize=(9,6))
-        sns.heatmap(RE, cmap='viridis')
-        plt.title('BUMP activity')
-        plt.ylabel('Angle')
-        plt.xlabel('time')
-        plt.plot([targon, nsteps], [p_targ, p_targ], '--b',) ## flipped, so it is p_target 
-        plt.plot([diston, nsteps], [p_dist, p_dist], '--r',) ## flipped, so it is p_target 
-        plt.yticks([])
-        plt.xticks([])
-        plt.yticks([N/8, 3*N/8, 5*N/8, 7*N/8 ] ,['45','135','225', '315'])
-        plt.plot([targ_onset/2, targ_onset/2,], [0+20, N-20], 'k-', label='onset')
-        plt.plot([targ_offset/2, targ_offset/2,], [0+20, N-20], 'k--', label='offset')
-        plt.plot([dist_onset/2, dist_onset/2,], [0+20, N-20], 'k-')
-        plt.plot([dist_offset/2, dist_offset/2,], [0+20, N-20], 'k--')
-        plt.legend()
-        plt.show(block=False)
-    
+        plot_of_heatmap(N, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset,
+        dist_onset, dist_offset )
+    ##
     ## print time consumed in each simulation
     end_sim =time.time()
     total_time= end_sim - st_sim 
