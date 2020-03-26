@@ -196,6 +196,29 @@ def gauss(x,mu,sigma,A):
 
 
 
+def get_number_bumps(rE, N):
+    y=np.reshape(rE, (N)) 
+    X=np.reshape(np.linspace(-pi, pi, N), N)
+    ### Fit
+    df_n_p=pd.DataFrame()
+    df_n_p['rE'] = rE.reshape(N)
+    peaks_list=[]
+    for n_w_s in range(1, 100):
+        r = df_n_p['rE'].rolling(window=n_w_s).mean()
+        number_of_bumps = len(scipy.signal.find_peaks(r, 2)[0]) 
+        peaks_list.append(number_of_bumps)
+    #
+    if number_of_bumps == 0:
+        if peaks_list==[0 for i in range(len(peaks_list))]:
+            number_of_bumps = 0
+        else:
+            peaks_list[:] = (value for value in peaks_list if value != 0)
+            number_of_bumps=most_frequent(peaks_list)
+    #
+    number_of_bumps=most_frequent(peaks_list)
+    return number_of_bumps
+
+
 ##model
 def model(totalTime, targ_onset, dist_onset, presentation_period, separation, order_2, 
                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
@@ -337,14 +360,12 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     
     
     #### Interference
-
     ##Output
-    readout=decode_rE(outputs[4][:,-1])
-    target = np.degrees(pi+pi/separation)
-    distractor = np.degrees(pi-pi/separation)
-    error = err_deg(readout,  target )
-    interference = Interference_effects( [target], [readout], [distractor])[0]
-
+    #readout=decode_rE(outputs[4][:,-1])
+    #target = np.degrees(pi+pi/separation)
+    #distractor = np.degrees(pi-pi/separation)
+    #error = err_deg(readout,  target )
+    #interference = Interference_effects( [target], [readout], [distractor])[0]
     p_targ = int((N * np.degrees(origin + stim_sep))/360)
     if plot_dyniamic==True:
         #### plot dynamics
@@ -402,39 +423,9 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     ###
     ###
     ###
-    readout=decode_rE(outputs[4][:,-1])
-    target = np.degrees(pi+pi/separation)
-    distractor = np.degrees(pi-pi/separation)
-    error = err_deg(readout,  target )
-    interference = Interference_effects( [target], [readout], [distractor])[0]
-
-    return bias_target, bias_dist, number_of_bumps, angle_separation, RE #rE[p_targ][0], I0E
-
-
-
-
-
-
-    y=np.reshape(rE, (N)) 
-    X=np.reshape(np.linspace(-pi, pi, N), N)
-    ### Fit
-    df_n_p=pd.DataFrame()
-    df_n_p['rE'] = rE.reshape(512)
-    peaks_list=[]
-    for n_w_s in range(1, 100):
-        r = df_n_p['rE'].rolling(window=n_w_s).mean()
-        number_of_bumps = len(scipy.signal.find_peaks(r, 2)[0]) 
-        peaks_list.append(number_of_bumps)
-    #
-    if number_of_bumps == 0:
-        if peaks_list==[0 for i in range(len(peaks_list))]:
-            number_of_bumps = 0
-        else:
-            peaks_list[:] = (value for value in peaks_list if value != 0)
-            number_of_bumps=most_frequent(peaks_list)
-    #
-    number_of_bumps=most_frequent(peaks_list)
-    #print(number_of_bumps)
+    number_of_bumps = get_number_bumps(rE, N)
+    ##
+    ##
     ### Fit
     if number_of_bumps ==2:
         target_pos_pi_pi = decode_rE(target) * 2*pi / 360 -pi
@@ -511,6 +502,12 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.show(block=False) 
     
     ### Output
+    readout=decode_rE(rE)
+    target = np.degrees(pi+pi/separation)
+    distractor = np.degrees(pi-pi/separation)
+    error = err_deg(readout,  target )
+    interference = Interference_effects( [target], [readout], [distractor])[0]
+    ##
     return bias_target, bias_dist, number_of_bumps, angle_separation, RE #rE[p_targ][0], I0E
 
 
