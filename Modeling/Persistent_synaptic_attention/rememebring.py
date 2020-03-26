@@ -316,7 +316,7 @@ def readout_2(target, distractor, X):
     final_bias = [bias_target, bias_dist]
     skip_r_sq=False
     success=True
-    return bias_target, bias_dist, final_bias, skip_r_sq, success
+    return bias_target, bias_dist, final_bias, skip_r_sq, success, ans
 
 
 
@@ -343,7 +343,7 @@ def readout_1(target, distractor, X):
     final_bias = [bias_target, bias_dist]
     skip_r_sq=False
     success=True
-    return bias_target, bias_dist, final_bias, skip_r_sq, success
+    return bias_target, bias_dist, final_bias, skip_r_sq, success, ans
 
 
 
@@ -503,16 +503,13 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     ##
     ### Fit
     if number_of_bumps ==2:
-        bias_target, bias_dist, final_bias, skip_r_sq, success = readout_2(target, distractor, X)
+        bias_target, bias_dist, final_bias, skip_r_sq, success, ans = readout_2(target, distractor, X)
 
     elif number_of_bumps ==1:
-        bias_target, bias_dist, final_bias, skip_r_sq, success = = readout_1(target, distractor, X)
-
-
+        bias_target, bias_dist, final_bias, skip_r_sq, success, ans = readout_1(target, distractor, X)
     else:
         print('Error simultaion')
-        bias_target =999
-        bias_dist =999
+        bias_target, bias_dist = [999, 999]
         final_bias=[999, 999]
         plot_fit=False
         skip_r_sq=True
