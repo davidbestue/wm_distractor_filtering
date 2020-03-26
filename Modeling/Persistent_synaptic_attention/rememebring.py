@@ -502,11 +502,11 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
         plt.show(block=False) 
     
     ### Output
-    readout=decode_rE(rE)
-    target = np.degrees(pi+pi/separation)
-    distractor = np.degrees(pi-pi/separation)
-    error = err_deg(readout,  target )
-    interference = Interference_effects( [target], [readout], [distractor])[0]
+    #readout=decode_rE(rE)
+    #target = np.degrees(pi+pi/separation)
+    #distractor = np.degrees(pi-pi/separation)
+    #error = err_deg(readout,  target )
+    #interference = Interference_effects( [target], [readout], [distractor])[0]
     ##
     return bias_target, bias_dist, number_of_bumps, angle_separation, RE #rE[p_targ][0], I0E
 
