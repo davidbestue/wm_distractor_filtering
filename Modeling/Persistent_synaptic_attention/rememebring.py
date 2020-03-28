@@ -249,12 +249,14 @@ def plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE):
 ###
 
 
+pal_cyan = sns.color_palette("RdBu_r", n_colors=200)[40:] #RdBu_r
+
 def plot_of_heatmap(N, nsteps, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
     #### plot heatmap
     p_targ = int((N * np.degrees(origin + stim_sep))/360)
     p_dist= int((N * np.degrees(origin - stim_sep))/360)
     plt.figure(figsize=(9,6))
-    sns.heatmap(RE, cmap='viridis')
+    sns.heatmap(RE, cmap=pal_cyan, cbar=True) #vmin=0, vmax=17,  
     plt.title('BUMP activity')
     plt.ylabel('Angle')
     plt.xlabel('time')
@@ -417,7 +419,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
     ## Different quadrant_selectivity options gaussian
     I0E_standard = 0.6 #0.9 #I0E
-    I0E_open =  1.2 #I0E_standard + 0.5
+    I0E_open =  1.2 #I0E_standard + 0.5 #
     I0E_close= 0.6 #I0E_standard -0.35
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
     quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
