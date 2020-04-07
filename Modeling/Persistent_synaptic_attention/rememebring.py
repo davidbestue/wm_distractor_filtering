@@ -254,7 +254,7 @@ pal_cyan = sns.color_palette("RdBu_r", n_colors=200)[40:] #RdBu_r
 def plot_of_heatmap(N, nsteps, origin, separation, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
     #### plot heatmap
     p_targ = int((N * np.degrees(origin )/360))
-    p_dist= int((N * np.degrees(origin + separation))/360)
+    p_dist= int((N * np.degrees(origin - separation))/360)
     plt.figure(figsize=(9,6))
     sns.heatmap(RE, cmap=pal_cyan, cbar=True) #vmin=0, vmax=17,  
     plt.title('BUMP activity')
