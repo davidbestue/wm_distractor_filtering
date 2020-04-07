@@ -254,7 +254,7 @@ pal_cyan = sns.color_palette("RdBu_r", n_colors=200)[40:] #RdBu_r
 def plot_of_heatmap(N, nsteps, origin, separation, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
     #### plot heatmap
     p_targ = int((N * np.degrees(origin )/360))
-    p_dist= int((N * np.degrees(origin - separation))/360)
+    p_dist= int((N * np.degrees(origin + separation))/360)
     plt.figure(figsize=(9,6))
     sns.heatmap(RE, cmap=pal_cyan, cbar=True) #vmin=0, vmax=17,  
     plt.title('BUMP activity')
@@ -366,7 +366,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period,angle_target_i,
     origin = np.radians(angle_target_i)
     separation =  np.radians(angle_separation)
     angle_target=angle_target_i
-    angle_distractor=angle_target_i-angle_separation
+    angle_distractor=angle_target_i + angle_separation
     targ_offset = targ_onset + presentation_period;
     targon = floor(targ_onset/dt);
     targoff = floor(targ_offset/dt);
@@ -402,7 +402,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period,angle_target_i,
     distractor=np.zeros((N))
     for i in range(0, N):
         target[i]=e**(kappa_stim*cos(theta[i] + origin))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
-        distractor[i]=e**(kappa_stim*cos(theta[i] + origin - separation)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
+        distractor[i]=e**(kappa_stim*cos(theta[i] + origin + separation)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
     
     
     #
