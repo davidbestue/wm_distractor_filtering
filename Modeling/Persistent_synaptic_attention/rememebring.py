@@ -402,7 +402,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period,angle_target_i,
     distractor=np.zeros((N))
     for i in range(0, N):
         target[i]=e**(kappa_stim*cos(theta[i] + origin))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
-        distractor[i]=e**(kappa_stim*cos(theta[i] + origin + separation)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
+        distractor[i]=e**(kappa_stim*cos(theta[i] + origin - separation)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
     
     
     #
@@ -426,7 +426,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period,angle_target_i,
     I0E_open =  1.2 #I0E_standard + 0.5 #
     I0E_close= 0.6 #I0E_standard -0.35
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
-    quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + separation))*(I0E_open-I0E_close) + I0E_close
+    quadrant_selectivity_open = model_I0E_flat( np.degrees(origin))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_standard = model_I0E_constant(I0E_standard)
     quadrant_selectivity = quadrant_selectivity_standard
     ##
