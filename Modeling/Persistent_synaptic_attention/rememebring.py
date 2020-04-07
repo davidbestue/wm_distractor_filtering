@@ -496,8 +496,6 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     total_time = round(total_time, 1)
     #print('Simulation time: ' + str(total_time) + 's')
     ###
-    ###
-    ###
     number_of_bumps = get_number_bumps(rE, N)
     y=np.reshape(rE, (N)) 
     X=np.reshape(np.linspace(-pi, pi, N), N)
