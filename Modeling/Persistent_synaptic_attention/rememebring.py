@@ -220,19 +220,19 @@ def get_number_bumps(rE, N):
 
 
 
-def plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE):
+def plot_of_dynamics(N, origin, separation, p_u, p_x, RE):
     fig = plt.figure()
     fig.tight_layout()
     fig.set_size_inches(13, 4)
     fig.add_subplot(131)
-    p_targ = int((N * np.degrees(origin + stim_sep))/360)
+    p_targ = int((N * np.degrees(origin))/360)
     plt.title('Synaptic dynamics for target')
     plt.plot(p_u[p_targ, :], 'b', label='prob. release')
     plt.plot(p_x[p_targ, :], 'r', label='pool vesicles')
     plt.xlabel('time (ms)')
     plt.legend()
     fig.add_subplot(132)
-    p_dist= int((N * np.degrees(origin - stim_sep))/360)
+    p_dist= int((N * np.degrees(origin - separation))/360)
     plt.title('Synaptic dynamics for distractor')
     plt.plot(p_u[p_dist, :], 'b', label='prob.y release')
     plt.plot(p_x[p_dist, :], 'r', label='pool vesicles')
@@ -251,10 +251,10 @@ def plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE):
 
 pal_cyan = sns.color_palette("RdBu_r", n_colors=200)[40:] #RdBu_r
 
-def plot_of_heatmap(N, nsteps, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
+def plot_of_heatmap(N, nsteps, origin, separation, RE, targon, diston, targ_onset, targ_offset, dist_onset, dist_offset ):
     #### plot heatmap
-    p_targ = int((N * np.degrees(origin + stim_sep))/360)
-    p_dist= int((N * np.degrees(origin - stim_sep))/360)
+    p_targ = int((N * np.degrees(origin )/360)
+    p_dist= int((N * np.degrees(origin - separation))/360)
     plt.figure(figsize=(9,6))
     sns.heatmap(RE, cmap=pal_cyan, cbar=True) #vmin=0, vmax=17,  
     plt.title('BUMP activity')
@@ -352,7 +352,7 @@ def readout_1(target, distractor, X,y):
 
 
 ##model
-def model(totalTime, targ_onset, dist_onset, presentation_period, separation, order_2, 
+def model(totalTime, targ_onset, dist_onset, presentation_period,angle_target_i, angle_separation, order_2, 
                tauE=60, tauI=10, tauf=7000, taud=80, I0I=0.4, U=0.4,
                GEE=0.016, GEI=0.015, GIE=0.012 , GII=0.007, sigE=0.2, sigI=0.04,
                kappa_E=100, kappa_I=1.5, k_inhib=0.07, kappa_stim=20,
@@ -362,15 +362,19 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     st_sim =time.time()
     dt=2;
     nsteps=int(floor(totalTime/dt));
-    origin = pi;
+
+    origin = np.radians(angle_target_i)
+    separation =  np.radians(angle_separation)
+    angle_target=angle_target_i
+    angle_distractor=angle_target_i-angle_separation
     targ_offset = targ_onset + presentation_period;
     targon = floor(targ_onset/dt);
     targoff = floor(targ_offset/dt);
     diston = floor(dist_onset/dt);    
     dist_offset = dist_onset  + presentation_period;
     distoff = floor(dist_offset/dt);
-    stim_sep = pi/separation; #(13 attract, 9 solo 1, 5 repulsion, 2 nada)
-    angle_separation = round(2*np.degrees(pi/separation),2)
+    #stim_sep = pi/separation; #(13 attract, 9 solo 1, 5 repulsion, 2 nada)
+    #angle_separation = round(2*np.degrees(pi/separation),2)
     ###
     targ_dist_delay = dist_onset - targ_offset
     ###### Connectivitiess
@@ -397,8 +401,8 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     target=np.zeros((N))
     distractor=np.zeros((N))
     for i in range(0, N):
-        target[i]=e**(kappa_stim*cos(theta[i] + origin - stim_sep))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
-        distractor[i]=e**(kappa_stim*cos(theta[i] + origin + stim_sep)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
+        target[i]=e**(kappa_stim*cos(theta[i] + origin))  / (2*pi*scipy.special.i0(kappa_stim)) ## target at (origin + sep)
+        distractor[i]=e**(kappa_stim*cos(theta[i] + origin + separation)) / (2*pi*scipy.special.i0(kappa_stim)) ## distractor at (origin -sep)
     
     
     #
@@ -422,7 +426,7 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     I0E_open =  1.2 #I0E_standard + 0.5 #
     I0E_close= 0.6 #I0E_standard -0.35
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
-    quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
+    quadrant_selectivity_open = model_I0E_flat( np.degrees(origin + separation))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_standard = model_I0E_constant(I0E_standard)
     quadrant_selectivity = quadrant_selectivity_standard
     ##
@@ -481,13 +485,13 @@ def model(totalTime, targ_onset, dist_onset, presentation_period, separation, or
     #distractor = np.degrees(pi-pi/separation)
     #error = err_deg(readout,  target )
     #interference = Interference_effects( [target], [readout], [distractor])[0]
-    p_targ = int((N * np.degrees(origin + stim_sep))/360)
-    p_dist= int((N * np.degrees(origin - stim_sep))/360)
+    p_targ = int((N * np.degrees(origin))/360)
+    p_dist= int((N * np.degrees(origin - separation))/360)
     if plot_dyniamic==True:
-        plot_of_dynamics(N, origin, stim_sep, p_u, p_x, RE)
+        plot_of_dynamics(N, origin, separation, p_u, p_x, RE)
     #
     if plot_heatmap==True:
-        plot_of_heatmap(N, nsteps, origin, stim_sep, RE, targon, diston, targ_onset, targ_offset,
+        plot_of_heatmap(N, nsteps, origin, separation, RE, targon, diston, targ_onset, targ_offset,
         dist_onset, dist_offset )
     ##
     ## print time consumed in each simulation
