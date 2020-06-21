@@ -446,7 +446,7 @@ def simulation_m_b(totalTime, targ_onset, dist_onset, presentation_period, separ
     total_time = round(total_time, 1)
     print('Simulation time: ' + str(total_time) + 's')
     
-    #### Fit
+    ### Fit
     ###### Fit
     def von_misses(x,mu,k):
         return (exp( k * cos(x-mu))) / (2*pi*scipy.special.i0(k)) 
