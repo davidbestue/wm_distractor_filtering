@@ -353,7 +353,7 @@ def model1(totalTime, targ_onset, dist_onset, presentation_period, angle_separat
         plt.plot(p_u[p_targ, :], 'b', label='prob. release')
         plt.plot(p_x[p_targ, :], 'r', label='pool vesicles')
         plt.xlabel('time (ms)')
-        plt.xticks(np.linspace(0,1500,7), np.array(np.linspace(0,1500,7)*2, dtype=int))        
+        plt.xticks(np.linspace(0, int(totalTime/dt), 7), np.array(np.linspace(0, int(totalTime/dt), 7)*2, dtype=int))        
         plt.gca().spines['right'].set_visible(False)  # aesthetics                                                                              # remove right spines
         plt.gca().spines['top'].set_visible(False)                                                                                  # remove top spines
         plt.gca().get_xaxis().tick_bottom()                                                                                         
@@ -366,7 +366,7 @@ def model1(totalTime, targ_onset, dist_onset, presentation_period, angle_separat
         plt.plot(p_u[p_dist, :], 'b', label='prob.y release')
         plt.plot(p_x[p_dist, :], 'r', label='pool vesicles')
         plt.xlabel('time (ms)')
-        plt.xticks(np.linspace(0,1500,7), np.array(np.linspace(0,1500,7)*2, dtype=int)) 
+        plt.xticks(np.linspace(0, int(totalTime/dt), 7), np.array(np.linspace(0, int(totalTime/dt), 7)*2, dtype=int)) 
         plt.gca().spines['right'].set_visible(False)  # aesthetics                                                                              # remove right spines
         plt.gca().spines['top'].set_visible(False)                                                                                  # remove top spines
         plt.gca().get_xaxis().tick_bottom()                                                                                         
@@ -378,7 +378,7 @@ def model1(totalTime, targ_onset, dist_onset, presentation_period, angle_separat
         plt.plot(RE[p_targ, :], 'b', label='target')
         plt.plot(RE[p_dist, :], 'r', label='distractor')
         plt.xlabel('time (ms)')
-        plt.xticks(np.linspace(0,1500,7), np.array(np.linspace(0,1500,7)*2, dtype=int)) 
+        plt.xticks(np.linspace(0, int(totalTime/dt), 7), np.array(np.linspace(0, int(totalTime/dt), 7)*2, dtype=int)) 
         plt.ylabel('rate (Hz)')
         plt.gca().spines['right'].set_visible(False)  # aesthetics                                                                              # remove right spines
         plt.gca().spines['top'].set_visible(False)                                                                                  # remove top spines
