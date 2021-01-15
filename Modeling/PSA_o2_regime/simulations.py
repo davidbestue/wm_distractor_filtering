@@ -1,7 +1,7 @@
 
 
 
-from model_psa import *
+from model_psa_o2 import *
 
 numcores = multiprocessing.cpu_count()-3
 numcores
