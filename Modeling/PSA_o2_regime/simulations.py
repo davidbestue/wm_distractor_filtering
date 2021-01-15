@@ -2,7 +2,7 @@
 
 from model_psa_o2 import *
 
-numcores = multiprocessing.cpu_count() - 3
+numcores = multiprocessing.cpu_count() - 4
 n_simuls=1000
 
 ###########################################################################################################################################################
