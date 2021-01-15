@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+"""
+@author: David Bestue
+"""
+
 import math
 from math import floor, exp, sqrt, pi
 import cmath
