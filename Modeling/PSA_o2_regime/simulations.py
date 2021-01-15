@@ -324,3 +324,5 @@ df=pd.concat([df_1_02_close, df_1_02_far, df_1_7_close, df_1_7_far,
 
 
 #
+df.to_excel('results_psa_o2.xlsx')
+#
