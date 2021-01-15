@@ -1,4 +1,7 @@
-
+# -*- coding: utf-8 -*-
+"""
+@author: David Bestue
+"""
 
 from model_psa_o2 import *
 
