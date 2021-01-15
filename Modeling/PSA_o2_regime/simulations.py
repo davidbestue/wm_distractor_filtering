@@ -9,14 +9,15 @@ numcores = multiprocessing.cpu_count() - 3
 
 n_simuls=10
 
-time_simulation=3200
-presentation_period = 200
-angle_separation=30
-target_onset = 200
+time_simulation=3300
+presentation_period=1500
+angle_separation=70
+target_onset = 300
 target_offset = target_onset + presentation_period
-distractor_onset = 500
+distractor_onset = 300
 distractor_offset = distractor_onset + presentation_period
 order2 = distractor_onset<target_onset ##boolean
+
 
 n_times = [time_simulation for i in range(n_simuls)] 
 
