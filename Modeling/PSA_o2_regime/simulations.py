@@ -8,6 +8,7 @@ from model_psa_o2 import *
 numcores = multiprocessing.cpu_count() - 4
 n_simuls=1000
 
+path_save= '/home/david/Desktop/IDIBAPS/Simulations_distractor_filtering/results_psa_o2.xlsx'
 
 ###########################################################################################################################################################
 ##################################################################### 1_0.2_close #########################################################################
@@ -328,5 +329,5 @@ df=pd.concat([df_1_02_close, df_1_02_far, df_1_7_close, df_1_7_far,
 
 
 #
-df.to_excel('results_psa_o2.xlsx')
+df.to_excel(path_save)
 #
