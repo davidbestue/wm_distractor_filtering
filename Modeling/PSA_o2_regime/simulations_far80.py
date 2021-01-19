@@ -8,7 +8,7 @@ from model_psa_o2 import *
 numcores = multiprocessing.cpu_count() - 4
 n_simuls=1000
 
-path_save= '/home/david/Desktop/IDIBAPS/Simulations_distractor_filtering/results_psa_o2_far.xlsx'
+path_save= '/home/david/Desktop/IDIBAPS/Simulations_distractor_filtering/results_psa_o2_far_50.xlsx'
 
 
 
@@ -19,7 +19,7 @@ print('1_0.2_far')
 
 time_simulation=3300
 presentation_period=200
-angle_separation=80 ###60
+angle_separation=50 ###60 ###80
 
 target_onset = 300
 target_offset = target_onset + presentation_period
@@ -55,7 +55,7 @@ print('1_7_far')
 
 time_simulation=3300
 presentation_period=200
-angle_separation=80
+angle_separation=50
 
 target_onset = 300
 target_offset = target_onset + presentation_period
@@ -105,7 +105,7 @@ print('2_0.2_far')
 
 time_simulation=3700
 presentation_period=200
-angle_separation=80
+angle_separation=50
 
 target_onset = 700
 target_offset = target_onset + presentation_period
@@ -141,7 +141,7 @@ print('2_7_far')
 
 time_simulation=5500
 presentation_period=200
-angle_separation=80
+angle_separation=50
 
 target_onset = 1500
 target_offset = target_onset + presentation_period
