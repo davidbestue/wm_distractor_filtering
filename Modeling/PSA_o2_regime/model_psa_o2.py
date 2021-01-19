@@ -244,9 +244,10 @@ def model1(totalTime, targ_onset, dist_onset, presentation_period, angle_separat
     
     
     #
-    target = target+ np.random.normal(0, 0.01, N)
+    noise_stim =  np.random.normal(0, 0, N) # np.random.normal(0, 0.01, N)
+    target = target+ noise_stim
     target=reshape(target, (N,1))
-    distractor = distractor+ np.random.normal(0, 0.01, N)
+    distractor = distractor + noise_stim
     distractor=reshape(distractor, (N,1)) 
     # Model
     mf=1
