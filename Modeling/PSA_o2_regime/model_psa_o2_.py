@@ -266,7 +266,7 @@ def model1_(totalTime, targ_onset, dist_onset, presentation_period, angle_separa
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
     quadrant_selectivity_open =  model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_standard = model_I0E_constant(I0E_open)
-    selectivity_all_open = model_I0E_constant((I0E_open-I0E_close) + I0E_close)
+    selectivity_all_open = model_I0E_constant(I0E_open) ###(I0E_open-I0E_close) + I0E_close)
     ##
     ## state before the simulation strats (depending on the cue)
     quadrant_selectivity = quadrant_selectivity_standard
