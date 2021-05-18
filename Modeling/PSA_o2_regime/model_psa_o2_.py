@@ -274,7 +274,7 @@ def model1_(totalTime, targ_onset, dist_onset, presentation_period, angle_separa
     if order_2 == True: 
         quadrant_selectivity = quadrant_selectivity_close  
     else:
-        quadrant_selectivity= quadrant_selectivity_standard  
+        quadrant_selectivity= quadrant_selectivity_open # quadrant_selectivity_standard  
     ##
     ### currents duing the simulation
     f = lambda x : x*x*(x>0)*(x<1) + reshape(array([cmath.sqrt(4*x[i]-3) for i in range(0, len(x))]).real, (N,1)) * (x>=1)
