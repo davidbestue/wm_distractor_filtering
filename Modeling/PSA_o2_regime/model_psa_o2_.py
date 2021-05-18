@@ -262,7 +262,7 @@ def model1_(totalTime, targ_onset, dist_onset, presentation_period, angle_separa
     #
     ## Different quadrant_selectivity options gaussian
     I0E_open =  1. #0.7 #1.2
-    I0E_close= 0.5 #0.1 #0.5 
+    I0E_close= 0.2 #0.1 #0.5 
     selectivity_all_close = model_I0E_constant(I0E_close)
     quadrant_selectivity_open =  model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     #quadrant_selectivity_standard = model_I0E_constant(I0E_open)
@@ -296,10 +296,10 @@ def model1_(totalTime, targ_onset, dist_onset, presentation_period, angle_separa
         #
         ## state depending on the time. Changes once you detect the stimulus! (add windows of time, not instantaneos)
         if order_2 == True: 
-            if i<targon:
+            if i<targon-125:
                 quadrant_selectivity = selectivity_all_close #always closed for order 2 until you detect the stimui
             else:
-                quadrant_selectivity = selectivity_all_open #quadrant_selectivity_open ## opened just around, the rest is closed
+                quadrant_selectivity = quadrant_selectivity_open #quadrant_selectivity_open ## opened just around, the rest is closed
         else: ##order 1
             if i< targon:
                 quadrant_selectivity = selectivity_all_close # all opened
