@@ -296,7 +296,7 @@ def model1_(totalTime, targ_onset, dist_onset, presentation_period, angle_separa
         #
         ## state depending on the time. Changes once you detect the stimulus! (add windows of time, not instantaneos)
         if order_2 == True: 
-            if i<targon-125:
+            if i<targon-150:
                 quadrant_selectivity = selectivity_all_close #always closed for order 2 until you detect the stimui
             else:
                 quadrant_selectivity = quadrant_selectivity_open #quadrant_selectivity_open ## opened just around, the rest is closed
