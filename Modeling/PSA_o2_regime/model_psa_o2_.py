@@ -266,6 +266,7 @@ def model1_(totalTime, targ_onset, dist_onset, presentation_period, angle_separa
     quadrant_selectivity_close = model_I0E_constant(I0E_close)
     quadrant_selectivity_open =  model_I0E_flat( np.degrees(origin + stim_sep))*(I0E_open-I0E_close) + I0E_close
     quadrant_selectivity_standard = model_I0E_constant(I0E_open)
+    selectivity_all_open = model_I0E_constant((I0E_open-I0E_close) + I0E_close)
     ##
     ## state before the simulation strats (depending on the cue)
     quadrant_selectivity = quadrant_selectivity_standard
@@ -294,13 +295,13 @@ def model1_(totalTime, targ_onset, dist_onset, presentation_period, angle_separa
             II=II+distractor;
         #
         ## state depending on the time. Changes once you detect the stimulus! (add windows of time, not instantaneos)
-        if i< targon+50:
+        if i< targon-100:
             if order_2==True: 
                 quadrant_selectivity = quadrant_selectivity_close #always closed for order 2 until you detect the stimui
             elif order_2==False:
                 quadrant_selectivity = quadrant_selectivity_standard # all opened
         else:
-            quadrant_selectivity = quadrant_selectivity_open ## opened just around, the rest is closed
+            quadrant_selectivity = selectivity_all_open #quadrant_selectivity_open ## opened just around, the rest is closed
         #####################################################
         #rates of exit and inhib   
         rE = rE*mf + (f(IE)*mf - rE*mf + noiseE)*dt/tauE;
