@@ -596,8 +596,6 @@ def simulation_heatmap(RE, time_simulation, order2, angle_separation, target_ons
 
 
 
-
-
 def heatmap_rate(RE, time_simulation, order2, angle_separation, target_onset, distractor_onset, pres_period):
     #pal_cyan = sns.color_palette("viridis")
     
@@ -636,26 +634,31 @@ def heatmap_rate(RE, time_simulation, order2, angle_separation, target_onset, di
     ###
 
     ##line stims  
+    c1='k'
+    c2='k'
+    
     if order2==False:
         s1on=stimon
         s1off=stimoff
         s2on=diston
         s2off=distoff
+        c1='darkorange'
     else:
         s1on=diston
         s1off=distoff
         s2on=stimon
         s2off=stimoff
+        c2='darkorange'
 
-    plt.plot([0, s1on], [-15, -15], 'k-', linewidth=2)
-    plt.plot([s1on, s1on], [-15, -40], 'k-', linewidth=2)
-    plt.plot([s1on, s1off], [-40, -40], 'k-', linewidth=2)
-    plt.plot([s1off, s1off], [-15, -40], 'k-', linewidth=2)
-    plt.plot([s1off, s2on], [-15, -15], 'k-', linewidth=2)
-    plt.plot([s2on, s2on], [-15, -40], 'k-', linewidth=2)
-    plt.plot([s2on, s2off], [-40, -40], 'k-', linewidth=2)
-    plt.plot([s2off, s2off], [-15, -40], 'k-', linewidth=2)
-    plt.plot([s2off, dims[1]], [-15, -15], 'k-', linewidth=2)
+    plt.plot([0, s1on], [-15, -15], linestyle='-', color='k', linewidth=2)
+    plt.plot([s1on, s1on], [-15, -40], linestyle='-', color=c1, linewidth=2)
+    plt.plot([s1on, s1off], [-40, -40], linestyle='-', color=c1, linewidth=2)
+    plt.plot([s1off, s1off], [-15, -40], linestyle='-', color=c1, linewidth=2)
+    plt.plot([s1off, s2on], [-15, -15], linestyle='-', color='k', linewidth=2)
+    plt.plot([s2on, s2on], [-15, -40],linestyle='-', color=c2, linewidth=2)
+    plt.plot([s2on, s2off], [-40, -40],linestyle='-', color=c2, linewidth=2)
+    plt.plot([s2off, s2off], [-15, -40], linestyle='-', color=c2, linewidth=2)
+    plt.plot([s2off, dims[1]], [-15, -15], linestyle='-', color='k', linewidth=2)
 
     #time
     x1sec = 1000 * dims[1] / time_simulation
