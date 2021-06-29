@@ -596,7 +596,8 @@ def simulation_heatmap(RE, time_simulation, order2, angle_separation, target_ons
 
 
 
-def heatmap_rate(RE, time_simulation, order2, angle_separation, target_onset, distractor_onset, pres_period):
+
+def heatmap_rate(RE, time_simulation, order2, angle_separation, target_onset, distractor_onset, pres_period, save_name=False):
     #pal_cyan = sns.color_palette("viridis")
     
     dims=np.shape(RE)
@@ -606,6 +607,7 @@ def heatmap_rate(RE, time_simulation, order2, angle_separation, target_onset, di
                 cbar_kws={"shrink": .82, 'ticks' : [0, 15, 30, 45], 'label': 'rate (Hz)'})
     ax.figure.axes[-1].yaxis.label.set_size(20)
     ax.figure.axes[-1].tick_params(labelsize=20)
+    ax.axis('tight')
     plt.gca().set_ylabel('')
     plt.gca().set_xlabel('')
     plt.gca().set_title('')
@@ -664,4 +666,6 @@ def heatmap_rate(RE, time_simulation, order2, angle_separation, target_onset, di
     x1sec = 1000 * dims[1] / time_simulation
     plt.plot([dims[1]-x1sec, dims[1]], [dimN+30, dimN+30], 'k-', linewidth=2)
     plt.text(dims[1]-300, 600, '1s', fontsize=20);
+    if save_name!=False:
+        plt.savefig(save_name + '.png', transparent=True) ##to save it transparent
     plt.show()
